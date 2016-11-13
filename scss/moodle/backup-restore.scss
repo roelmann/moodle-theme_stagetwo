@@ -1,0 +1,300 @@
+.path-backup .mform {
+    fieldset {
+        margin-left: 0;
+    }
+
+    .grouped_settings {
+        clear: both;
+        overflow: hidden;
+
+        &.section_level {
+            @extend .card;
+            @extend .card-block;
+        }
+    }
+}
+
+.path-backup {
+    .include_setting,
+    .grouped_settings .normal_setting {
+        display: inline-block;
+        width: 50%;
+
+        .form-group {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+    }
+
+    .include_setting.section_level label {
+        font-weight: bold;
+    }
+}
+
+@include media-breakpoint-up(md) {
+    /* Override the columns width to leave more room for the labels. */
+    .path-backup .mform {
+        .grouped_settings {
+            .form-group {
+                .col-md-3 {
+                    width: 75%;
+                }
+                .col-md-9 {
+                    width: 25%;
+                }
+            }
+        }
+    }
+}
+
+.path-backup .mform .fitem .fitemtitle {
+    width: 260px;
+}
+
+.path-backup .notification.dependencies_enforced {
+    text-align: center;
+    color: $state-danger-text;
+    font-weight: bold;
+}
+
+.path-backup .backup_progress {
+    text-align: center;
+    margin-top: $spacer-y;
+    margin-bottom: $spacer-y;
+
+    .backup_stage {
+        @extend .text-muted;
+
+        &.backup_stage_current {
+            font-weight: bold;
+            color: inherit;
+        }
+    }
+}
+
+.path-backup .backup_progress span.backup_stage.backup_stage_complete {
+    color: inherit;
+}
+
+#page-backup-restore .filealiasesfailures {
+    background-color: $state-danger-bg;
+
+    .aliaseslist {
+        width: 90%;
+        margin: 0.8em auto;
+        background-color: $body-bg;
+        border: 1px dotted #666;
+    }
+}
+
+#page-backup-restorefile h2 + div {
+    margin-bottom: $spacer-y;
+}
+
+.backup-restore {
+    .backup-section,
+    .backup-sub-section {
+        margin-top: $spacer-y;
+    }
+
+    .backup-section {
+        span.error {
+            @extend .alert;
+            @extend .alert-danger;
+            display: inline-block;
+        }
+
+        fieldset.error {
+            border: $border-width solid $state-danger-border;
+        }
+
+        .noticebox {
+            margin: 1em auto;
+            width: 60%;
+            text-align: center;
+        }
+    }
+}
+
+.backup-restore .backup-section.settings-section {
+    .detail-pair {
+        width: 50%;
+        display: inline-block;
+    }
+
+    .detail-pair-label {
+        width: 75%;
+    }
+
+    .detail-pair-value {
+        width: 25%;
+    }
+}
+
+.backup-restore .activitytable {
+    min-width: 500px;
+
+    .modulename {
+        width: 100px;
+    }
+
+    .moduleincluded {
+        width: 50px;
+    }
+
+    .userinfoincluded {
+        width: 50px;
+    }
+}
+
+.backup-restore .detail-pair-label {
+    display: inline-block;
+    width: 25%;
+    padding: 8px;
+    margin: 0;
+    text-align: right;
+    font-weight: bold;
+    vertical-align: top;
+}
+
+.backup-restore .detail-pair-value {
+    display: inline-block;
+    width: 65%;
+    padding: 8px;
+    margin: 0;
+
+    > .sub-detail {
+        display: block;
+        font-size: $font-size-sm;
+        @extend .text-muted;
+    }
+}
+
+.backup-restore > .singlebutton {
+    float: right;
+}
+
+.path-backup .mform {
+    .proceedbutton,
+    .oneclickbackup {
+        float: right;
+    }
+}
+
+.restore-course-search .rcs-results {
+    width: 70%;
+    min-width: 400px;
+
+    table {
+        width: 100%;
+        margin: 0;
+        border-width: 0;
+
+        .no-overflow {
+            max-width: 600px;
+        }
+    }
+
+    .paging {
+        text-align: left;
+        margin: 0;
+        background-color: #eee;
+        padding: 3px;
+    }
+}
+
+.restore-course-category .rcs-results {
+    width: 70%;
+    min-width: 400px;
+    border: 1px solid #ddd;
+    margin: 5px 0;
+
+    table {
+        width: 100%;
+        margin: 0;
+        border-width: 0;
+        .no-overflow {
+            max-width: 600px;
+        }
+    }
+
+    .paging {
+        text-align: left;
+        margin: 0;
+        background-color: #eee;
+        padding: 3px;
+    }
+}
+
+.path-backup .wibbler {
+    width: 500px;
+    margin: 0 auto 10px;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+    position: relative;
+    min-height: 4px;
+
+    .wibble {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 4px;
+    }
+
+    .state0 {
+        background: #eee;
+    }
+    .state1 {
+        background: #ddd;
+    }
+    .state2 {
+        background: #ccc;
+    }
+    .state3 {
+        background: #bbb;
+    }
+    .state4 {
+        background: #aaa;
+    }
+    .state5 {
+        background: #999;
+    }
+    .state6 {
+        background: #888;
+    }
+    .state7 {
+        background: #777;
+    }
+    .state8 {
+        background: #666;
+    }
+    .state9 {
+        background: #555;
+    }
+    .state10 {
+        background: #444;
+    }
+    .state11 {
+        background: #333;
+    }
+    .state12 {
+        background: #222;
+    }
+}
+
+.path-backup .backup_log {
+    margin-top: 2em;
+
+    h2 {
+        font-size: 1em;
+    }
+}
+
+.path-backup .backup_log_contents {
+    border: $border-width solid $card-border-color;
+    padding: $spacer;
+    height: 300px;
+    overflow-y: scroll;
+}
