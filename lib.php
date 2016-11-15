@@ -58,19 +58,19 @@ function theme_stagetwo_get_pre_scss($theme) {
 
     $configurable = [
     // Config key => variableName, ....
-        'brandcolor' => 'brand-primary',
-        'brandprimary' => 'brand-primary',
-        'brandsuccess' => 'brand-success',
-        'brandinfo' => 'brand-info',
-        'brandwarning' => 'brand-warning',
-        'branddanger' => 'brand-danger',
-        'brandgraybase' => 'gray-base',
+        'brandcolor' => ['brand-primary'],
+        'brandprimary' => ['brand-primary'],
+        'brandsuccess' => ['brand-success'],
+        'brandinfo' => ['brand-info'],
+        'brandwarning' => ['brand-warning'],
+        'branddanger' => ['brand-danger'],
+        'brandgraybase' => ['gray-base'],
 
     ];
 
     // Add settings variables.
     foreach ($configurable as $configkey => $targets) {
-        $value = $theme->settings->$configkey;
+        $value = $theme->settings->{$configkey};
         if (empty($value)) {
             continue;
         }
