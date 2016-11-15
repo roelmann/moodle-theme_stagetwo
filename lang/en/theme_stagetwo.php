@@ -40,9 +40,14 @@ $string['branddanger_desc'] = 'Brand colour for danger alerts and panels, etc';
 $string['brandgray'] = 'Gray Base';
 $string['brandgray_desc'] = 'Gray Base setting - This is the colour used to create gray shades. Default will be #000, but this can be adapted if there is a need to adjust contrast levels';
 $string['choosereadme'] = 'stagetwo is a modern highly-customisable theme. This theme is intended to be used directly, or as a parent theme when creating new themes utilising Bootstrap 4.';
+$string['courseheaderdefaultimage'] = 'Default header image';
+$string['courseheaderdefaultimage_desc'] = 'Default image for course headers and non-course pages';
+
 $string['currentinparentheses'] = '(current)';
 $string['configtitle'] = 'stagetwo';
 $string['generalsettings'] = 'General settings';
+$string['headingimagesettings'] = 'Heading and Course image settings';
+
 $string['pluginname'] = 'stagetwo';
 $string['presetfiles'] = 'Additional theme preset files';
 $string['presetfiles_desc'] = 'Preset files can be used to dramatically alter the appearance of the theme. See https://docs.moodle.org/dev/stagetwo_Presets for information on creating and sharing your own preset files.';

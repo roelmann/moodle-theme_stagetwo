@@ -69,7 +69,7 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
-        // Variable $body-color.
+    // Variable $body-color.
     // We use an empty default value because the default colour should come from the preset.
     $name = 'theme_stagetwo/brandcolor';
     $title = get_string('brandcolor', 'theme_stagetwo');
@@ -133,5 +133,25 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
+    // Must add the page after definiting all the settings!
     $settings->add($page);
+
+    // Heading image settings.
+    $page = new admin_settingpage('theme_stagetwo_headerimages', get_string('headingimagesettings', 'theme_stagetwo'));
+
+    // Default header image.
+    $name = 'theme_stagetwo/courseimagedefaultheader';
+    $title = get_string('courseheaderdefaultimage', 'theme_stagetwo');
+    $description = get_string('courseheaderdefaultimage_desc', 'theme_stagetwo');
+    $setting = new admin_setting_configstoredfile($name, $title, $description, 'courseimagedefaultheader');
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+
+
+
+
+    // Must add the page after definiting all the settings!
+    $settings->add($page);
+
 }

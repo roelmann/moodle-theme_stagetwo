@@ -47,7 +47,56 @@ function theme_stagetwo_get_extra_scss($theme) {
     if(!empty($theme->settings->scss)) {
         $extrascss .= $theme->settings->scss;
     }
-    $extrascss .= '#page-content {background-color:#00ff00;}';
+
+    // Set the background image for the header.
+    $headerbg = $theme->setting_file_url('courseimagedefaultheader', 'courseimagedefaultheader');
+
+global $CFG, $COURSE;
+
+if (empty($CFG->courseoverviewfileslimit)) {
+    return array();
+}
+require_once($CFG->libdir. '/filestorage/file_storage.php');
+require_once($CFG->dirroot. '/course/lib.php');
+$fs = get_file_storage();
+
+//--------------------------------------
+$context = context_course::instance($COURSE->id); // ERROR HERE: picking up $COURSE->ID = 1 on all courses.
+//--------------------------------------
+
+$files = $fs->get_area_files($context->id, 'course', 'overviewfiles', false, 'filename', false);
+if (count($files)) {
+    $overviewfilesoptions = course_overviewfiles_options($COURSE->id);
+    $acceptedtypes = $overviewfilesoptions['accepted_types'];
+    if ($acceptedtypes !== '*') {
+        // Filter only files with allowed extensions.
+        require_once($CFG->libdir. '/filelib.php');
+        foreach ($files as $key => $file) {
+            if (!file_extension_in_typegroup($file->get_filename(), $acceptedtypes)) {
+                unset($files[$key]);
+            }
+        }
+    }
+    if (count($files) > $CFG->courseoverviewfileslimit) {
+        // Return no more than $CFG->courseoverviewfileslimit files.
+        $files = array_slice($files, 0, $CFG->courseoverviewfileslimit, true);
+    }
+}
+
+// Display course overview files.
+$courseimage = '';
+foreach ($files as $file) {
+    $isimage = $file->is_valid_image();
+    if ($isimage) {
+        $courseimage = file_encode_url("$CFG->wwwroot/pluginfile.php",
+            '/'. $file->get_contextid(). '/'. $file->get_component(). '/'.
+            $file->get_filearea(). $file->get_filepath(). $file->get_filename(), !$isimage);
+    }
+}
+
+    $extrascss .= 'header#page-header .card {background-image: url("'.$headerbg.'");}';
+    $extrascss .= 'header#page-header .card h1:after{content:": '.$COURSE->id.' : '.$context->id.' : '.count($files).$files.'"}';
+
 
     return $extrascss;
 }
@@ -110,4 +159,74 @@ function theme_stagetwo_get_pre_scss($theme) {
     }
 
     return $scss;
+}
+
+/**
+ * Serves any files associated with the theme settings.
+ *
+ * @param stdClass $course
+ * @param stdClass $cm
+ * @param context $context
+ * @param string $filearea
+ * @param array $args
+ * @param bool $forcedownload
+ * @param array $options
+ * @return bool
+ */
+
+function theme_stagetwo_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = array()) {
+    static $theme;
+    if (empty($theme)) {
+        $theme = theme_config::load('stagetwo');
+    }
+    if ($context->contextlevel == CONTEXT_SYSTEM && ($filearea === 'logo')) {
+        $theme = theme_config::load('stagetwo');
+        return $theme->setting_file_serve($filearea, $args, $forcedownload, $options);
+//    } else if (preg_match("/slide[1-9][0-9]*image/", $filearea) !== false) { // Carousel images.
+//        return $theme->setting_file_serve($filearea, $args, $forcedownload, $options);
+//    } else if ($filearea === 'minilogo') {
+//            return $theme->setting_file_serve('minilogo', $args, $forcedownload, $options);
+//    } else if ($filearea === 'favicon') {
+//            return $theme->setting_file_serve('favicon', $args, $forcedownload, $options);
+//    } else if ($filearea === 'loginbg') {
+//            return $theme->setting_file_serve('loginbg', $args, $forcedownload, $options);
+    } else if ($filearea === 'courseimagedefaultheader') {
+            return $theme->setting_file_serve('courseimagedefaultheader', $args, $forcedownload, $options);
+    } else {
+        send_file_not_found();
+    }
+}
+
+/**
+ * This function creates the dynamic HTML needed for some
+ * settings and then passes it back in an object so it can
+ * be echo'd to the page.
+ *
+ * This keeps the logic out of the layout files.
+ *
+ * @param string $setting bring the required setting into the function
+ * @param bool $format
+ * @param string $setting
+ * @param array $theme
+ * @param stdclass $CFG
+ * @return string
+ */
+function theme_stagetwo_get_setting($setting, $format = false) {
+    global $CFG;
+    require_once($CFG->dirroot . '/lib/weblib.php');
+    static $theme;
+    if (empty($theme)) {
+        $theme = theme_config::load('stagetwo');
+    }
+    if (empty($theme->settings->$setting)) {
+        return false;
+    } else if (!$format) {
+        return $theme->settings->$setting;
+    } else if ($format === 'format_text') {
+        return format_text($theme->settings->$setting, FORMAT_PLAIN);
+    } else if ($format === 'format_html') {
+        return format_text($theme->settings->$setting, FORMAT_HTML, array('trusted' => true, 'noclean' => true));
+    } else {
+        return format_string($theme->settings->$setting);
+    }
 }
