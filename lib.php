@@ -42,7 +42,14 @@ function theme_stagetwo_css_tree_post_processor($tree, $theme) {
  * @return string
  */
 function theme_stagetwo_get_extra_scss($theme) {
-    return !empty($theme->settings->scss) ? $theme->settings->scss : '';
+    // Changes for testing only - to differentiate between calling boost/child functions.
+    $extrascss = '';
+    if(!empty($theme->settings->scss)) {
+        $extrascss .= $theme->settings->scss;
+    }
+    $extrascss .= '#page-content {background-color:#00ff00;}';
+
+    return $extrascss;
 }
 
 /**
