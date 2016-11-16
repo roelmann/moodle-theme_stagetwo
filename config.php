@@ -40,3 +40,14 @@ $THEME->supportscssoptimisation = false;
 $THEME->yuicssmodules = array();
 $THEME->rendererfactory = 'theme_overridden_renderer_factory';
 $THEME->undeletableblocktypes = '';
+
+
+$THEME->layouts = [
+    // Main course page.
+    'course' => array(
+        'file' => 'course.php',
+        'regions' => array('side-pre'),
+        'defaultregion' => 'side-pre',
+        'options' => array('langmenu' => true),
+    ),
+];
