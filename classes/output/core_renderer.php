@@ -74,65 +74,75 @@ class core_renderer extends \core_renderer {
      */
     public function full_header() {
 
-global $CFG, $COURSE;
+        global $CFG, $COURSE;
 
-if (empty($CFG->courseoverviewfileslimit)) {
-    return array();
-}
-require_once($CFG->libdir. '/filestorage/file_storage.php');
-require_once($CFG->dirroot. '/course/lib.php');
-$fs = get_file_storage();
-$context = context_course::instance($COURSE->id);
-$files = $fs->get_area_files($context->id, 'course', 'overviewfiles', false, 'filename', false);
-if (count($files)) {
-    $overviewfilesoptions = course_overviewfiles_options($COURSE->id);
-    $acceptedtypes = $overviewfilesoptions['accepted_types'];
-    if ($acceptedtypes !== '*') {
-        // Filter only files with allowed extensions.
-        require_once($CFG->libdir. '/filelib.php');
-        foreach ($files as $key => $file) {
-            if (!file_extension_in_typegroup($file->get_filename(), $acceptedtypes)) {
-                unset($files[$key]);
+        // Get course overview files.
+        if (empty($CFG->courseoverviewfileslimit)) {
+            return array();
+        }
+        require_once($CFG->libdir. '/filestorage/file_storage.php');
+        require_once($CFG->dirroot. '/course/lib.php');
+        $fs = get_file_storage();
+        $context = context_course::instance($COURSE->id);
+        $files = $fs->get_area_files($context->id, 'course', 'overviewfiles', false, 'filename', false);
+        if (count($files)) {
+            $overviewfilesoptions = course_overviewfiles_options($COURSE->id);
+            $acceptedtypes = $overviewfilesoptions['accepted_types'];
+            if ($acceptedtypes !== '*') {
+                // Filter only files with allowed extensions.
+                require_once($CFG->libdir. '/filelib.php');
+                foreach ($files as $key => $file) {
+                    if (!file_extension_in_typegroup($file->get_filename(), $acceptedtypes)) {
+                        unset($files[$key]);
+                    }
+                }
+            }
+            if (count($files) > $CFG->courseoverviewfileslimit) {
+                // Return no more than $CFG->courseoverviewfileslimit files.
+                $files = array_slice($files, 0, $CFG->courseoverviewfileslimit, true);
             }
         }
-    }
-    if (count($files) > $CFG->courseoverviewfileslimit) {
-        // Return no more than $CFG->courseoverviewfileslimit files.
-        $files = array_slice($files, 0, $CFG->courseoverviewfileslimit, true);
-    }
-}
 
-// Display course overview files.
-$courseimage = '';
-foreach ($files as $file) {
-    $isimage = $file->is_valid_image();
-    if ($isimage) {
-        $courseimage = file_encode_url("$CFG->wwwroot/pluginfile.php",
-            '/'. $file->get_contextid(). '/'. $file->get_component(). '/'.
-            $file->get_filearea(). $file->get_filepath(). $file->get_filename(), !$isimage);
-    }
-}
+        // Get course overview files as images - set $courseimage.
+        // The loop means that the LAST stored image will be the one displayed if >1 image file.
+        $courseimage = '';
+        foreach ($files as $file) {
+            $isimage = $file->is_valid_image();
+            if ($isimage) {
+                $courseimage = file_encode_url("$CFG->wwwroot/pluginfile.php",
+                    '/'. $file->get_contextid(). '/'. $file->get_component(). '/'.
+                    $file->get_filearea(). $file->get_filepath(). $file->get_filename(), !$isimage);
+            }
+        }
 
-
+        // Create html for header.
         $html = html_writer::start_tag('header', array('id' => 'page-header', 'class' => 'row'));
         $html .= html_writer::start_div('col-xs-12 p-a-1');
-        if (!$courseimage) {
-            $html .= html_writer::start_div('card');
-        } else {
-            $html .= html_writer::start_div('card', array('class' => 'withimage', 'style' => 'background:url("'.$courseimage.'")'));
+        $html .= html_writer::start_div('card');
 
+        // If course image display it in separate div to allow css styling of inline style.
+        if ($courseimage) {
+            $html .= html_writer::start_div('withimage', array(
+                'style' => 'background: url("'.$courseimage.'"); background-size: 100% 100%;
+                width: 100%; height: 100%;'));
         }
+
         $html .= html_writer::start_div('card-block');
         $html .= html_writer::div($this->context_header_settings_menu(), 'pull-xs-right context-header-settings-menu');
         $html .= $this->context_header();
         $html .= html_writer::start_div('clearfix', array('id' => 'page-navbar'));
         $html .= html_writer::tag('div', $this->navbar(), array('class' => 'breadcrumb-nav'));
         $html .= html_writer::div($this->page_heading_button(), 'breadcrumb-button');
-        $html .= html_writer::end_div();
+        $html .= html_writer::end_div(); // End page-navbar.
         $html .= html_writer::tag('div', $this->course_header(), array('id' => 'course-header'));
-        $html .= html_writer::end_div();
-        $html .= html_writer::end_div();
-        $html .= html_writer::end_div();
+        $html .= html_writer::end_div(); // End card-block.
+
+        if ($courseimage) {
+            $html .= html_writer::end_div(); // End withimage inline style div.
+        }
+
+        $html .= html_writer::end_div(); // End card.
+        $html .= html_writer::end_div(); // End col-xs-12 p-a-1.
         $html .= html_writer::end_tag('header');
         return $html;
     }

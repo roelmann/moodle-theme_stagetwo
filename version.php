@@ -15,10 +15,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Boost.
+ * Version file.
  *
- * @package    theme_boost
- * @copyright  2016 Frédéric Massart
+ * @package    theme_stagetwo
+ * @copyright  2016 Richard Oelmann
+ * @credits    theme_boost - MoodleHQ
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

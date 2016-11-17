@@ -27,4 +27,3 @@ Checkout the latest branch of bootstrap to a folder, in that folder run:
 
 Copy the transpiled files from out/ into the amd/src/ folder for the theme.
 Run grunt to re-compile the JS files.
-

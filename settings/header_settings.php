@@ -15,28 +15,26 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Theme config file.
+ * Heading and course images settings page file.
  *
- * @package    theme_stagetwo
+ * @packagetheme_stagetwo
  * @copyright  2016 Richard Oelmann
- * @credits    theme_boost - MoodleHQ
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @creditstheme_boost - MoodleHQ
+ * @licensehttp://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 defined('MOODLE_INTERNAL') || die();
 
-require_once(__DIR__ . '/lib.php');
+$page = new admin_settingpage('theme_stagetwo_headerimages', get_string('headingimagesettings', 'theme_stagetwo'));
 
-$THEME->name = 'stagetwo';
-$THEME->scssfile = 'preset';
-$THEME->sheets = ['custom'];
-$THEME->editor_sheets = ['editor'];
+// Default header image.
+$name = 'theme_stagetwo/headerdefaultimage';
+$title = get_string('headerdefaultimage', 'theme_stagetwo');
+$description = get_string('headerdefaultimage_desc', 'theme_stagetwo');
+$setting = new admin_setting_configstoredfile($name, $title, $description, 'headerdefaultimage');
+$setting->set_updatedcallback('theme_reset_all_caches');
+$page->add($setting);
 
-$THEME->parents = ['boost'];
-$THEME->enable_dock = false;
-$THEME->csstreepostprocessor = 'theme_stagetwo_css_tree_post_processor';
-$THEME->extrascsscallback = 'theme_stagetwo_get_extra_scss';
-$THEME->prescsscallback = 'theme_stagetwo_get_pre_scss';
-$THEME->supportscssoptimisation = false;
-$THEME->yuicssmodules = array();
-$THEME->rendererfactory = 'theme_overridden_renderer_factory';
-$THEME->undeletableblocktypes = '';
+
+// Must add the page after definiting all the settings!
+$settings->add($page);
