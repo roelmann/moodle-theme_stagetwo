@@ -45,10 +45,8 @@ $string['presetfiles_desc'] = 'Preset files can be used to dramatically alter th
 $string['preset'] = 'Theme preset';
 $string['preset_desc'] = 'Pick a preset to broadly change the look of the theme.';
 
-// Colours Settings.
-$string['colours_settings'] = 'Colours';
-$string['brandcolor'] = 'Brand Color';
-$string['brandcolor_desc'] = 'Your main brand colour';
+// Colours and SCSS Settings.
+$string['colours_settings'] = 'Colours and SCSS settings';
 $string['brandprimary'] = 'Brand Primary';
 $string['brandprimary_desc'] = 'Your main brand colour';
 $string['brandsuccess'] = 'Brand Success';
@@ -69,8 +67,8 @@ $string['rawscsspre'] = 'Raw initial SCSS';
 $string['rawscsspre_desc'] = 'In this field you can provide initialising SCSS code, it will be injected before everything else.
     Most of the time you will use this setting to define variables.';
 
-// Header Settings.
-$string['headingimagesettings'] = 'Heading and Course image settings';
+// Image Settings.
+$string['headingimagesettings'] = 'Background and Header Image settings';
 $string['headerdefaultimage'] = 'Default header image';
 $string['headerdefaultimage_desc'] = 'Default image for course headers and non-course pages';
 

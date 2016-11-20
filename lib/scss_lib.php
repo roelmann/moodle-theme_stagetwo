@@ -70,7 +70,6 @@ function theme_stagetwo_get_pre_scss($theme) {
 
     $configurable = [
     // Config key => variableName, ....
-        'brandcolor' => ['brand-primary'],
         'brandprimary' => ['brand-primary'],
         'brandsuccess' => ['brand-success'],
         'brandinfo' => ['brand-info'],
