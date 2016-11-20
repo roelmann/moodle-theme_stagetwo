@@ -43,8 +43,44 @@ function theme_stagetwo_css_tree_post_processor($tree, $theme) {
  * @return string
  */
 function theme_stagetwo_get_extra_scss($theme) {
-    // Changes for testing only - to differentiate between calling boost/child functions.
     $extrascss = '';
+
+    // Other settings - should be in get_pre_scss but inheritance in boost is currently u/s :( .
+    global $CFG;
+    $configurable = [
+    // Config key => variableName, ....
+        'brandprimary' => ['brand-primary'],
+        'brandsuccess' => ['brand-success'],
+        'brandinfo' => ['brand-info'],
+        'brandwarning' => ['brand-warning'],
+        'branddanger' => ['brand-danger'],
+        'brandgraybase' => ['gray-base'],
+
+    ];
+
+    // Add settings variables.
+    foreach ($configurable as $configkey => $targets) {
+        $value = $theme->settings->{$configkey};
+        if (empty($value)) {
+            continue;
+        }
+        array_map(function($target) use (&$extrascss, $value) {
+            $extrascss .= '$' . $target . ': ' . $value . ";\n";
+        }, (array) $targets);
+    }
+
+    // Prepend pre-scss.
+    if (!empty($theme->settings->scsspre)) {
+        $extrascss .= $theme->settings->scsspre;
+    }
+
+    // Theme SCSS - added here because currently scss inheritance is currently u/s in boost :( .
+    // Outline header text.
+    $extrascss .= 'header#page-header .card .card-block .page-header-headings h1 {
+        text-shadow: -1px 0 2px blue, 0 1px 2px blue, 1px 0 2px blue, 0 -1px 2px blue;}';
+
+
+    // Add extra scss setting.
     if (!empty($theme->settings->scss)) {
         $extrascss .= $theme->settings->scss;
     }
