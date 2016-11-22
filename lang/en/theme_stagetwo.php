@@ -73,6 +73,11 @@ $string['rawscsspre_desc'] = 'In this field you can provide initialising SCSS co
 $string['headingimagesettings'] = 'Heading and Course image settings';
 $string['headerdefaultimage'] = 'Default header image';
 $string['headerdefaultimage_desc'] = 'Default image for course headers and non-course pages';
+$string['backgroundimage'] = 'Default header image';
+$string['backgroundimage_desc'] = 'Default image for course headers and non-course pages';
+$string['loginimage'] = 'Default header image';
+$string['loginimage_desc'] = 'Default image for course headers and non-course pages';
+
 
 // Social Networks.
 $string['socialheading'] = 'Social Networking';

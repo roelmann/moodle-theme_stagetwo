@@ -110,10 +110,24 @@ function theme_stagetwo_get_pre_scss($theme) {
         $scss .= $theme->settings->scsspre;
     }
 
-    // Set the background image for the header.
+    // Set the default image for the header.
     $headerbg = $theme->setting_file_url('headerdefaultimage', 'headerdefaultimage');
-    // Add a fade in transition to avoid the flicker on course headers ***.
-    $scss .= 'header#page-header .card {background-image: url("'.$headerbg.'"); background-size:100% 100%;}';
+    if (isset($headerbg)) {
+        // Add a fade in transition to avoid the flicker on course headers ***.
+        $scss .= 'header#page-header .card {background-image: url("'.$headerbg.'"); background-size:100% 100%;}';
+    }
+
+    // Set the background image for the page.
+    $pagebg = $theme->setting_file_url('backgroundimage', 'backgroundimage');
+    if (isset($pagebg)) {
+        $scss .= 'body {background-image: url("'.$pagebg.'"); background-size:100% 100%;}';
+    }
+
+    // Set the background image for the login page.
+    $loginbg = $theme->setting_file_url('loginimage', 'loginimage');
+    if (isset($loginbg)) {
+        $scss .= 'body#page-login-index {background-image: url("'.$loginbg.'"); background-size:100% 100%;}';
+    }
 
     return $scss;
 }

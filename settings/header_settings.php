@@ -35,6 +35,22 @@ $setting = new admin_setting_configstoredfile($name, $title, $description, 'head
 $setting->set_updatedcallback('theme_reset_all_caches');
 $page->add($setting);
 
+// Default background image.
+$name = 'theme_stagetwo/backgroundimage';
+$title = get_string('backgroundimage', 'theme_stagetwo');
+$description = get_string('backgroundimage_desc', 'theme_stagetwo');
+$setting = new admin_setting_configstoredfile($name, $title, $description, 'backgroundimage');
+$setting->set_updatedcallback('theme_reset_all_caches');
+$page->add($setting);
+
+// Default login page image.
+$name = 'theme_stagetwo/loginimage';
+$title = get_string('loginimage', 'theme_stagetwo');
+$description = get_string('loginimage_desc', 'theme_stagetwo');
+$setting = new admin_setting_configstoredfile($name, $title, $description, 'loginimage');
+$setting->set_updatedcallback('theme_reset_all_caches');
+$page->add($setting);
+
 
 // Must add the page after definiting all the settings!
 $settings->add($page);

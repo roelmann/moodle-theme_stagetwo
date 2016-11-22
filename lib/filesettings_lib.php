@@ -47,7 +47,12 @@ function theme_stagetwo_pluginfile($course, $cm, $context, $filearea, $args, $fo
         $theme = theme_config::load('stagetwo');
         return $theme->setting_file_serve($filearea, $args, $forcedownload, $options);
     } else if ($filearea === 'headerdefaultimage') { // Default header image.
-            return $theme->setting_file_serve('headerdefaultimage', $args, $forcedownload, $options);
+        return $theme->setting_file_serve('headerdefaultimage', $args, $forcedownload, $options);
+    } else if ($filearea === 'backgroundimage') { // Background image.
+        return $theme->setting_file_serve('backgroundimage', $args, $forcedownload, $options);
+    } else if ($filearea === 'loginimage') { // Login page image.
+        return $theme->setting_file_serve('loginimage', $args, $forcedownload, $options);
+
     } else {
         send_file_not_found();
     }
