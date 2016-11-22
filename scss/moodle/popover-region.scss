@@ -4,12 +4,10 @@ $region-container-height: 500px;
 $region-container-width: 380px;
 $region-container-z-index: 1;
 $region-header-height: 25px;
-$region-footer-height: 30px;
 $content-item-hover-colour-bg: #79b5e6;
 $content-item-hover-colour-text: #fff;
 $content-item-selected-colour-bg: #4f94cd;
 $content-item-unread-colour: #f4f4f4;
-$content-header-footer-height: $region-header-height + $region-footer-height;
 
 @mixin invisible() {
     opacity: 0;
@@ -105,14 +103,6 @@ $content-header-footer-height: $region-header-height + $region-footer-height;
     box-sizing: border-box;
 }
 
-.popover-region-footer-container {
-    height: $region-footer-height;
-    text-align: center;
-    border-top: $standard-border;
-    background-color: $popover-bg;
-    padding-top: 3px;
-}
-
 .popover-region-header-text {
     float: left;
     margin: 0;
@@ -133,11 +123,6 @@ $content-header-footer-height: $region-header-height + $region-footer-height;
         height: 12px;
         width: 12px;
     }
-
-    .newmessage-link {
-        margin-right: 10px;
-    }
-
     label {
         display: inline-block;
         text-align: center;
@@ -146,7 +131,7 @@ $content-header-footer-height: $region-header-height + $region-footer-height;
 }
 
 .popover-region-content-container {
-    height: calc(100% - #{$content-header-footer-height});
+    height: calc(100% - 25px);
     width: 100%;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;

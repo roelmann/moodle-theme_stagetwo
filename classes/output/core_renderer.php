@@ -118,15 +118,13 @@ class core_renderer extends \core_renderer {
         // Create html for header.
         $html = html_writer::start_tag('header', array('id' => 'page-header', 'class' => 'row'));
         $html .= html_writer::start_div('col-xs-12 p-a-1');
+        $html .= html_writer::start_div('card');
 
         // If course image display it in separate div to allow css styling of inline style.
         if ($courseimage) {
-            $html .= html_writer::start_div('card', array('background-image:none;'));
             $html .= html_writer::start_div('withimage', array(
                 'style' => 'background: url("'.$courseimage.'"); background-size: 100% 100%;
                 width: 100%; height: 100%;'));
-        } else {
-            $html .= html_writer::start_div('card');
         }
 
         $html .= html_writer::start_div('card-block');

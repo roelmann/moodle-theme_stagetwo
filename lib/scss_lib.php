@@ -19,7 +19,7 @@
  *
  * @package    theme_stagetwo
  * @copyright  2016 Richard Oelmann
- * @credits    theme_boost - MoodleHQ
+ * @credits    theme_stagetwo - MoodleHQ
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -37,60 +37,40 @@ function theme_stagetwo_css_tree_post_processor($tree, $theme) {
 }
 
 /**
- * Inject additional SCSS.
+ * Returns the main SCSS content.
  *
  * @param theme_config $theme The theme config object.
  * @return string
  */
-function theme_stagetwo_get_extra_scss($theme) {
-    $extrascss = '';
-
-    // Other settings - should be in get_pre_scss but inheritance in boost is currently u/s :( .
+function theme_stagetwo_get_main_scss_content($theme) {
     global $CFG;
-    $configurable = [
-    // Config key => variableName, ....
-        'brandprimary' => ['brand-primary'],
-        'brandsuccess' => ['brand-success'],
-        'brandinfo' => ['brand-info'],
-        'brandwarning' => ['brand-warning'],
-        'branddanger' => ['brand-danger'],
-        'brandgraybase' => ['gray-base'],
 
-    ];
+    $scss = '';
+    $filename = !empty($theme->settings->preset) ? $theme->settings->preset : null;
+    $fs = get_file_storage();
 
-    // Add settings variables.
-    foreach ($configurable as $configkey => $targets) {
-        $value = $theme->settings->{$configkey};
-        if (empty($value)) {
-            continue;
+    $context = context_system::instance();
+    $iterator = new DirectoryIterator($CFG->dirroot . '/theme/stagetwo/scss/preset/');
+    $preset_isset = '';
+    foreach ($iterator as $pfile) {
+        if($pfile->isDot()) continue;
+        $presetname = substr($pfile,0,strlen($pfile)-5); // name - '.scss'
+        if ($filename == $presetname) {
+            $scss .= file_get_contents($CFG->dirroot . '/theme/stagetwo/scss/preset/' . $pfile);
+            $preset_isset = true;
         }
-        array_map(function($target) use (&$extrascss, $value) {
-            $extrascss .= '$' . $target . ': ' . $value . ";\n";
-        }, (array) $targets);
+    }
+    if (!$preset_isset) {
+        $filename .= '.scss';
+        if ($filename && ($presetfile = $fs->get_file($context->id, 'theme_stagetwo', 'preset', 0    , '/', $filename))) {
+            $scss .= $presetfile->get_content();
+        } else {
+            // Safety fallback - maybe new installs etc.
+            $scss .= file_get_contents($CFG->dirroot . '/theme/stagetwo/scss/preset/default.scss');
+        }
     }
 
-    // Prepend pre-scss.
-    if (!empty($theme->settings->scsspre)) {
-        $extrascss .= $theme->settings->scsspre;
-    }
-
-    // Theme SCSS - added here because currently scss inheritance is currently u/s in boost :( .
-    // Outline header text.
-    $extrascss .= 'header#page-header .card .card-block .page-header-headings h1 {
-        text-shadow: -1px 0 2px blue, 0 1px 2px blue, 1px 0 2px blue, 0 -1px 2px blue;}';
-
-
-    // Add extra scss setting.
-    if (!empty($theme->settings->scss)) {
-        $extrascss .= $theme->settings->scss;
-    }
-
-    // Set the background image for the header.
-    $headerbg = $theme->setting_file_url('headerdefaultimage', 'headerdefaultimage');
-    // Add a fade in transition to avoid the flicker on course headers ***.
-    $extrascss .= 'header#page-header .card {background-image: url("'.$headerbg.'"); background-size:100% 100%;}';
-
-    return $extrascss;
+    return $scss;
 }
 
 /**
@@ -112,7 +92,6 @@ function theme_stagetwo_get_pre_scss($theme) {
         'brandwarning' => ['brand-warning'],
         'branddanger' => ['brand-danger'],
         'brandgraybase' => ['gray-base'],
-
     ];
 
     // Add settings variables.
@@ -131,21 +110,27 @@ function theme_stagetwo_get_pre_scss($theme) {
         $scss .= $theme->settings->scsspre;
     }
 
-    // Now append the preset.
-    $filename = $theme->settings->preset;
-    $fs = get_file_storage();
-
-    $context = context_system::instance();
-    if ($filename == 'default.scss') {
-        $scss .= file_get_contents($CFG->dirroot . '/theme/stagetwo/scss/preset/default.scss');
-    } else if ($filename == 'plain.scss') {
-        $scss .= file_get_contents($CFG->dirroot . '/theme/stagetwo/scss/preset/plain.scss');
-    } else if ($filename && ($presetfile = $fs->get_file($context->id, 'theme_stagetwo', 'preset', 0, '/', $filename))) {
-        $scss .= $presetfile->get_content();
-    } else {
-        // Safety fallback - maybe new installs etc.
-        $scss .= file_get_contents($CFG->dirroot . '/theme/stagetwo/scss/preset/default.scss');
-    }
+    // Set the background image for the header.
+    $headerbg = $theme->setting_file_url('headerdefaultimage', 'headerdefaultimage');
+    // Add a fade in transition to avoid the flicker on course headers ***.
+    $scss .= 'header#page-header .card {background-image: url("'.$headerbg.'"); background-size:100% 100%;}';
 
     return $scss;
 }
+
+/**
+ * Inject additional SCSS.
+ *
+ * @param theme_config $theme The theme config object.
+ * @return string
+ */
+function theme_stagetwo_get_extra_scss($theme) {
+    // Adapted from Boost to allow other changes or settings if required.
+    $extrascss = '';
+    if (!empty($theme->settings->scss)) {
+        $extrascss .= $theme->settings->scss;
+    }
+
+    return $extrascss;
+}
+

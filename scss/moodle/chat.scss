@@ -14,7 +14,6 @@
     .yui-layout-unit-right,
     .yui-layout-unit-bottom {
         @extend .card;
-        @extend .card-block;
         border-radius: 0;
     }
 
@@ -27,6 +26,19 @@
         border: 0;
         padding: 3px 15px;
         white-space: nowrap;
+
+        input {
+            margin: 0 10px;
+
+            &#input-message {
+                width: 45%;
+                margin: auto;
+            }
+        }
+
+        a {
+            margin: 0 5px;
+        }
     }
 
     #chat-userlist {
@@ -62,9 +74,12 @@
         }
 
         .chat-message.course-theme {
-            @extend .card;
-            @extend .card-block;
-            background-color: $card-bg !important; /* stylelint-disable declaration-no-important */
+            background-color: $body-bg;
+            border: 1px dotted #ddd;
+
+            @include border-radius(4px);
+            padding: 4px 10px;
+            margin: 10px 0;
 
             .time {
                 float: right;

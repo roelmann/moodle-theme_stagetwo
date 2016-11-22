@@ -27,9 +27,11 @@ defined('MOODLE_INTERNAL') || die();
 require_once(__DIR__ . '/lib.php');
 
 $THEME->name = 'stagetwo';
-$THEME->scssfile = 'preset';
 $THEME->sheets = ['custom'];
 $THEME->editor_sheets = ['editor'];
+$THEME->scss = function($theme) {
+    return theme_stagetwo_get_main_scss_content($theme);
+};
 
 $THEME->parents = ['boost'];
 $THEME->enable_dock = false;

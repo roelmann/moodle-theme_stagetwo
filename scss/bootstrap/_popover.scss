@@ -1,4 +1,3 @@
-/* rtl:begin:ignore */
 .popover {
   position: absolute;
   top: 0;
@@ -142,7 +141,6 @@
 .popover-arrow {
   border-width: $popover-arrow-outer-width;
 }
-/* rtl:end:ignore */
 .popover-arrow::after {
   content: "";
   border-width: $popover-arrow-width;

@@ -240,6 +240,10 @@
     font-size: 0.8em;
 }
 
+#userselector_options {
+    padding: 0.3em 0;
+}
+
 #userselector_options .collapsibleregioncaption {
     font-weight: bold;
 }
@@ -289,17 +293,4 @@
             min-width: 175px;
         }
     }
-}
-
-// Remove the little cog from participants page because we are putting a cog menu there.
-.userlist h3 .action-icon {
-    display: none;
-}
-
-#page-enrol-users .popover {
-    max-width: none;
-}
-
-.user-enroller-panel {
-    width: 600px;
 }
