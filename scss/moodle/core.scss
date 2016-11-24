@@ -131,6 +131,7 @@ a.autolink.glossary:hover {
 /* Block which is hidden if javascript enabled, prevents fickering visible when JS from footer used! */
 .collapsibleregioncaption {
     white-space: nowrap;
+    min-height: $line-height-base * $font-size-base;
 }
 
 .pagelayout-mydashboard.jsenabled .collapsibleregioncaption {
@@ -155,6 +156,7 @@ a.autolink.glossary:hover {
 
 .jsenabled .collapsibleregion {
     overflow: hidden;
+    box-sizing: content-box;
 }
 
 .jsenabled .collapsed .collapsibleregioninner {
@@ -297,7 +299,8 @@ form.popupform div {
 }
 
 span.hide,
-div.hide {
+div.hide,
+.hidden {
     display: none;
 }
 // Accessibility: Skip block link, for keyboard-only users.
@@ -1083,14 +1086,6 @@ tr.flagged-tag a {
         @extend .card;
         @extend .card-block;
     }
-
-    .user-enroller-panel .uep-search-results .user .details {
-        width: 237px;
-    }
-
-    .user-enroller-panel .uep-search-results .cohort .details {
-        width: 237px;
-    }
 }
 
 #page-enrol-users .enrol-users-page-action input {
@@ -1292,18 +1287,6 @@ body#page-lib-editor-tinymce-plugins-moodlemedia-preview {
     border: 0;
 }
 
-.moodle-dialogue-confirm .confirmation-dialogue {
-    text-align: center;
-}
-
-.moodle-dialogue-confirm .confirmation-dialogue input {
-    text-align: center;
-}
-
-.moodle-dialogue-exception .moodle-exception-message {
-    text-align: center;
-}
-
 .moodle-dialogue-exception .moodle-exception-param label {
     font-weight: bold;
 }
@@ -1350,6 +1333,9 @@ body#page-lib-editor-tinymce-plugins-moodlemedia-preview {
 
 .moodle-dialogue-confirm .confirmation-message {
     margin: 0.5em 1em;
+}
+.moodle-dialogue-confirm .confirmation-buttons {
+    text-align: right;
 }
 
 .moodle-dialogue-confirm .confirmation-dialogue input {
@@ -1445,7 +1431,7 @@ body#page-lib-editor-tinymce-plugins-moodlemedia-preview {
 /* Center the submit buttons within the area */
 .choosercontainer #chooseform .submitbuttons {
     padding: 0.7em 0;
-    text-align: center;
+    text-align: right;
 }
 /* Fixed for safari browser on iPhone4S with ios7@mixin */
 
@@ -2177,3 +2163,8 @@ $footer-link-color: $brand-primary !default;
     color: $body-color;
 }
 
+.competency-tree {
+    ul {
+        padding-left: 1.5rem;
+    }
+}

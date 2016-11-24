@@ -138,6 +138,7 @@
     text-align: left;
     margin-left: auto;
     margin-right: auto;
+    margin-top: $spacer-y;
 }
 
 #page-admin-roles-define .topfields {
@@ -177,17 +178,6 @@
 #page-admin-roles-define .definenotice {
     margin: 1em 10% 2em 10%;
     text-align: left;
-}
-
-#notice {
-    width: 60%;
-    min-width: 220px;
-    margin: auto;
-    text-align: center;
-
-    .buttons {
-        padding: 0;
-    }
 }
 
 #page-admin-index .releasenoteslink,
@@ -802,4 +792,9 @@
 
 #adminsettings .form-overridden {
     @extend .form-control-feedback;
+    @extend .alert-info;
+}
+
+.modal.modal-in-page {
+    z-index: 0;
 }

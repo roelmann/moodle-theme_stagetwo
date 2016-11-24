@@ -17,10 +17,6 @@
     .dropdown-toggle {
         /* So that the caret takes the colour of the icon. */
         color: #999;
-
-        &::after {
-            margin-left: 0;
-        }
     }
 }
 
@@ -54,10 +50,22 @@ $blocks-plus-gutter: $blocks-column-width + $grid-gutter-width;
     border-bottom-left-radius: 0.5rem;
     float: right;
 }
+
+// Required for IE11 to prevent blocks being pushed under the content.
+#region-main {
+    float: left;
+    width: 100%;
+}
 #region-main-settings-menu.has-blocks,
 #region-main.has-blocks {
     display: inline-block;
     width: calc(100% - #{$blocks-plus-gutter});
+    @include media-breakpoint-down(md) {
+        width: 100%;
+    }
+}
+
+[data-region="blocks-column"] {
     @include media-breakpoint-down(md) {
         width: 100%;
     }

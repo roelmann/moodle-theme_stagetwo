@@ -9,6 +9,10 @@ select {
     width: auto;
 }
 
+.path-mod-feedback .feedback_form .col-form-label {
+    display: block !important; /* stylelint-disable-line declaration-no-important */
+}
+
 // Feedback module
 .path-mod-feedback .itemactions {
     float: right;
@@ -145,6 +149,10 @@ select {
 #page-mod-forum-discuss .discussioncontrols {
     width: auto;
     margin: 0;
+
+    .form-inline input {
+        margin-top: -1px;
+    }
 }
 
 .maincalendar .calendarmonth td,
@@ -205,21 +213,6 @@ div#dock {
 
 // Choice module
 
-.path-mod-choice {
-    .horizontal  .choices {
-        margin: 0;
-
-        .option {
-            display: inline-block;
-            padding: 10px;
-        }
-    }
-
-    .results .data {
-        white-space: normal;
-    }
-}
-
 // Lesson module
 
 /** General styles (scope: all of lesson) **/
@@ -259,13 +252,6 @@ div#dock {
         }
     }
 
-    .resultgraph,
-    .reportsummary,
-    .studentreport,
-    .reportbuttons,
-    .centerpara {
-        text-align: center;
-    }
 }
 
 .nav .caret {
@@ -356,6 +342,34 @@ div#dock {
 }
 
 // Quiz module
+.path-mod-quiz .mod-quiz-edit-content {
+    // Force the quiz edit page to always be large enough to prevent scrolling when accessing the menu.
+    margin-bottom: 10rem;
+}
+
+#page-mod-quiz-mod #id_reviewoptionshdr .col-md-3,
+#page-mod-quiz-mod #id_reviewoptionshdr .col-md-9 {
+    width: auto;
+}
+#page-mod-quiz-mod #id_reviewoptionshdr .form-group {
+    float: left;
+    width: 20rem;
+    display: inline-block;
+    min-height: 12rem;
+}
+
+#page-mod-quiz-mod #id_reviewoptionshdr .btn-link {
+    line-height: 1.5;
+    vertical-align: bottom;
+}
+#page-mod-quiz-mod #id_reviewoptionshdr .form-inline {
+    float: left;
+    clear: left;
+}
+#page-mod-quiz-mod #id_reviewoptionshdr .form-check {
+    width: 90%;
+    height: 22px;
+}
 
 // Question navigation block.
 .path-mod-quiz #mod_quiz_navblock {
@@ -364,7 +378,7 @@ div#dock {
         font-size: 14px;
         line-height: 20px;
         font-weight: normal;
-        background-color: $body-color;
+        background-color: $card-bg;
         background-image: none;
         height: 40px;
         width: 30px;
@@ -406,7 +420,7 @@ div#dock {
 
     .qnbutton .trafficlight {
         border: 0;
-        background: $body-color none center / 10px no-repeat scroll;
+        background: $card-bg none center / 10px no-repeat scroll;
         height: 20px;
         margin-top: 20px;
         border-radius: 0 0 3px 3px;
@@ -414,7 +428,7 @@ div#dock {
 
     .qnbutton.notyetanswered .trafficlight,
     .qnbutton.invalidanswer .trafficlight {
-        background-color: $body-color;
+        background-color: $card-bg;
     }
 
     .qnbutton.invalidanswer .trafficlight {
@@ -448,9 +462,8 @@ div#dock {
     }
 }
 
-/**
- * Assign.
- */
+
+// Assign.
 .path-mod-assign [data-region="grade-actions-panel"] [data-region="grade-actions"] .collapse-buttons {
     top: auto;
 }
@@ -458,38 +471,69 @@ div#dock {
     overflow: initial;
 }
 
-.path-mod-assign [data-region="grade-panel"] .has-popout {
-    background-color: $card-bg;
+// This section removes the responsiveness from the form in the grading panel
+$popout-header-font-size: 1.5 * $font-size-base;
+// This can't be calculated from modal-title-padding because we are mixing px and rem units.
+$popout-header-height: 4rem;
 
-    @include border-radius($card-border-radius);
-    border: $card-border-width solid $card-border-color;
+.path-mod-assign #page-content [data-region="grade-panel"] .mform:not(.unresponsive) .fcontainer .fitem.popout .felement {
+    height: calc(100% - #{$popout-header-height});
 }
+
+.path-mod-assign [data-region="grade-panel"] {
+    padding-top: $spacer;
+}
+.path-mod-assign [data-region="grade-panel"] .fitem > .col-md-3,
+.path-mod-assign [data-region="grade-panel"] .fitem > .col-md-9 {
+    width: 100%;
+    padding: 0;
+}
+.path-mod-assign [data-region="grade-panel"] fieldset,
+.path-mod-assign [data-region="grade-panel"] .fitem.row {
+    margin: 0;
+}
+
+.path-mod-assign [data-region="grade-panel"] .fitem > .col-md-3 > .pull-xs-right {
+    float: none !important; /* stylelint-disable-line declaration-no-important */
+}
+
+.path-mod-assign [data-region="grade-panel"] .mform .fitem.has-popout .felement {
+    width: 100%;
+}
+
+.path-mod-assign [data-region="grade-panel"] .mform .fitem .felement {
+    width: auto;
+}
+
+// Now styles for the popout sections.
 
 .path-mod-assign [data-region="grade-panel"] .popout {
     background-color: $modal-content-bg;
 }
 
-.path-mod-assign [data-region="grade-panel"] .col-md-3 {
-    width: 100%;
+.path-mod-assign [data-region="grade-panel"] .fitem.has-popout {
+    background-color: $card-bg;
+    @include border-radius($card-border-radius);
+    border: $card-border-width solid $card-border-color;
+    padding: $card-spacer-x;
+    margin-bottom: $spacer;
 }
+.path-mod-assign [data-region="grade-panel"] .has-popout .col-md-3 {
+    border-bottom: $hr-border-width solid $hr-border-color;
+    margin-bottom: $spacer;
+}
+
 
 .path-mod-assign [data-region="grade-panel"] .popout > .col-md-3 {
     @extend .modal-header;
-    font-size: 1.5rem;
-}
-
-.path-mod-assign [data-region="grade-panel"] [data-region="popout-button"] {
-    margin-top: 0.5rem;
+    font-size: $popout-header-font-size;
 }
 
 .path-mod-assign [data-region="grade-panel"] .popout [data-region="popout-button"] {
     margin-top: 0;
 }
 
-.path-mod-assign [data-region="grade-panel"] h3 {
-    margin: 10px 0;
-    line-height: 40px;
-}
+// Now style the fixed header elements.
 
 .path-mod-assign [data-region="assignment-info"] {
     overflow-y: hidden;
@@ -497,7 +541,6 @@ div#dock {
 
 .path-mod-assign [data-region="grading-navigation"] {
     padding: 6px;
-    overflow-y: hidden;
 }
 
 .path-mod-assign [data-region="grade-actions"] {
@@ -510,6 +553,15 @@ div#dock {
 
 .path-mod-assign [data-region="grading-navigation-panel"] {
     height: 85px;
+}
+
+@media (max-width: 767px) {
+    .path-mod-assign [data-region="grading-navigation-panel"] {
+        height: auto;
+    }
+    .path-mod-assign [data-region="user-info"] {
+        margin-top: 1rem;
+    }
 }
 
 .path-mod-assign [data-region="grading-navigation"] [data-region="input-field"] input {
@@ -541,3 +593,13 @@ div#dock {
     padding: 0;
 }
 
+
+/**
+ * Mod LTI.
+ */
+.path-admin-mod-lti {
+    .btn .loader img,
+    #tool-list-loader-container .loader img {
+        height: auto;
+    }
+}
