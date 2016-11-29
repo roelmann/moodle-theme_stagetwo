@@ -930,6 +930,65 @@ class core_renderer extends \core_renderer {
         return $social_content;
     }
 
+    public function social_iconstwo() {
+        global $PAGE;
+
+        $hasfacebook    = (empty($PAGE->theme->settings->facebook)) ? false : $PAGE->theme->settings->facebook;
+        $hastwitter     = (empty($PAGE->theme->settings->twitter)) ? false : $PAGE->theme->settings->twitter;
+        $hasgoogleplus  = (empty($PAGE->theme->settings->googleplus)) ? false : $PAGE->theme->settings->googleplus;
+        $haslinkedin    = (empty($PAGE->theme->settings->linkedin)) ? false : $PAGE->theme->settings->linkedin;
+        $hasyoutube     = (empty($PAGE->theme->settings->youtube)) ? false : $PAGE->theme->settings->youtube;
+        $hasflickr      = (empty($PAGE->theme->settings->flickr)) ? false : $PAGE->theme->settings->flickr;
+        $hasvk          = (empty($PAGE->theme->settings->vk)) ? false : $PAGE->theme->settings->vk;
+        $haspinterest   = (empty($PAGE->theme->settings->pinterest)) ? false : $PAGE->theme->settings->pinterest;
+        $hasinstagram   = (empty($PAGE->theme->settings->instagram)) ? false : $PAGE->theme->settings->instagram;
+        $hasskype       = (empty($PAGE->theme->settings->skype)) ? false : $PAGE->theme->settings->skype;
+        $haswebsite     = (empty($PAGE->theme->settings->website)) ? false : $PAGE->theme->settings->website;
+        $hasblog        = (empty($PAGE->theme->settings->blog)) ? false : $PAGE->theme->settings->blog;
+        $hasvimeo       = (empty($PAGE->theme->settings->vimeo)) ? false : $PAGE->theme->settings->vimeo;
+        $hastumblr      = (empty($PAGE->theme->settings->tumblr)) ? false : $PAGE->theme->settings->tumblr;
+        $hassocial1     = (empty($PAGE->theme->settings->social1)) ? false : $PAGE->theme->settings->social1;
+        $social1icon    = (empty($PAGE->theme->settings->socialicon1)) ? 'globe' : $PAGE->theme->settings->socialicon1;
+        $hassocial2     = (empty($PAGE->theme->settings->social2)) ? false : $PAGE->theme->settings->social2;
+        $social2icon    = (empty($PAGE->theme->settings->socialicon2)) ? 'globe' : $PAGE->theme->settings->socialicon2;
+        $hassocial3     = (empty($PAGE->theme->settings->social3)) ? false : $PAGE->theme->settings->social3;
+        $social3icon    = (empty($PAGE->theme->settings->socialicon3)) ? 'globe' : $PAGE->theme->settings->socialicon3;
+
+        $socialcontext = [
+            'hasfacebook'    => $hasfacebook,
+            'hastwitter'     => $hastwitter,
+            'hasgoogleplus'  => $hasgoogleplus,
+            'haslinkedin'    => $haslinkedin,
+            'hasyoutube'     => $hasyoutube,
+            'hasflickr'      => $hasflickr,
+            'hasvk'          => $hasvk,
+            'haspinterest'   => $haspinterest,
+            'hasinstagram'   => $hasinstagram,
+            'hasskype'       => $hasskype,
+            'haswebsite'     => $haswebsite,
+            'hasblog'        => $hasblog,
+            'hasvimeo'       => $hasvimeo,
+            'hastumblr'      => $hastumblr,
+            'hassocial1'     => $hassocial1,
+            'social1icon'    => $social1icon,
+            'hassocial2'     => $hassocial2,
+            'social2icon'    => $social2icon,
+            'hassocial3'     => $hassocial3,
+            'social3icon'    => $social3icon,
+
+            // If any of the above social networks are true, sets this to true.
+            'hassocialnetworks' => ($hasfacebook || $hastwitter || $hasgoogleplus || $hasflickr || $hasinstagram
+                || $hasvk || $haslinkedin || $haspinterest || $hasskype || $haslinkedin || $haswebsite || $hasyoutube
+                || $hasblog ||$hasvimeo || $hastumblr || $hassocial1 || $hassocial2 || $hassocial3) ? true : false
+
+        ];
+
+
+        return $this->render_from_template('theme_stagetwo/socialicons', $socialcontext);
+
+    }
+
+
     public function footnote() {
         global $PAGE;
         $footnote = '';
