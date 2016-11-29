@@ -736,4 +736,197 @@ class core_renderer extends \core_renderer {
         return $skipped;
     }
 
+
+    public function social_icons() {
+        global $PAGE;
+        $social_content = '';
+
+        $hasfacebook    = (empty($PAGE->theme->settings->facebook)) ? false : $PAGE->theme->settings->facebook;
+        $hastwitter     = (empty($PAGE->theme->settings->twitter)) ? false : $PAGE->theme->settings->twitter;
+        $hasgoogleplus  = (empty($PAGE->theme->settings->googleplus)) ? false : $PAGE->theme->settings->googleplus;
+        $haslinkedin    = (empty($PAGE->theme->settings->linkedin)) ? false : $PAGE->theme->settings->linkedin;
+        $hasyoutube     = (empty($PAGE->theme->settings->youtube)) ? false : $PAGE->theme->settings->youtube;
+        $hasflickr      = (empty($PAGE->theme->settings->flickr)) ? false : $PAGE->theme->settings->flickr;
+        $hasvk          = (empty($PAGE->theme->settings->vk)) ? false : $PAGE->theme->settings->vk;
+        $haspinterest   = (empty($PAGE->theme->settings->pinterest)) ? false : $PAGE->theme->settings->pinterest;
+        $hasinstagram   = (empty($PAGE->theme->settings->instagram)) ? false : $PAGE->theme->settings->instagram;
+        $hasskype       = (empty($PAGE->theme->settings->skype)) ? false : $PAGE->theme->settings->skype;
+        $haswebsite     = (empty($PAGE->theme->settings->website)) ? false : $PAGE->theme->settings->website;
+        $hasblog        = (empty($PAGE->theme->settings->blog)) ? false : $PAGE->theme->settings->blog;
+        $hasvimeo       = (empty($PAGE->theme->settings->vimeo)) ? false : $PAGE->theme->settings->vimeo;
+        $hastumblr      = (empty($PAGE->theme->settings->tumblr)) ? false : $PAGE->theme->settings->tumblr;
+        $hassocial1     = (empty($PAGE->theme->settings->social1)) ? false : $PAGE->theme->settings->social1;
+        $social1icon    = (empty($PAGE->theme->settings->socialicon1)) ? 'globe' : $PAGE->theme->settings->socialicon1;
+        $hassocial2     = (empty($PAGE->theme->settings->social2)) ? false : $PAGE->theme->settings->social2;
+        $social2icon    = (empty($PAGE->theme->settings->socialicon2)) ? 'globe' : $PAGE->theme->settings->socialicon2;
+        $hassocial3     = (empty($PAGE->theme->settings->social3)) ? false : $PAGE->theme->settings->social3;
+        $social3icon    = (empty($PAGE->theme->settings->socialicon3)) ? 'globe' : $PAGE->theme->settings->socialicon3;
+
+        // If any of the above social networks are true, sets this to true.
+        $hassocialnetworks = ($hasfacebook || $hastwitter || $hasgoogleplus || $hasflickr || $hasinstagram
+            || $hasvk || $haslinkedin || $haspinterest || $hasskype || $haslinkedin || $haswebsite || $hasyoutube
+            || $hasblog ||$hasvimeo || $hastumblr || $hassocial1 || $hassocial2 || $hassocial3) ? true : false;
+
+        $social_content .= '<div class="socials_wrapper">';
+
+        if ($hassocialnetworks) {
+            $social_content .= '<ul class="socials">';
+            if ($hasblog) {
+                $social_content .='<a href="'.$hasblog.'" class="socialicon blog" title="'.$hasblog.'" alt="'.$hasblog.'">';
+                $social_content .='<span class="fa-stack fa-2x">';
+                $social_content .='<i class="fa fa-square fa-stack-2x"></i>';
+                $social_content .='<i class="fa fa-bookmark fa-inverse fa-stack-1x"></i>';
+                $social_content .='</span>';
+                $social_content .='<span class="sr-only">'.$hasblog.'</span>';
+                $social_content .='</a>';
+            }
+            if ($haswebsite) {
+                $social_content .='<a href="'.$haswebsite.'" class="socialicon website" title="'.$haswebsite.'" alt="'.$haswebsite.'">';
+                $social_content .='<span class="fa-stack fa-2x">';
+                $social_content .='<i class="fa fa-square fa-stack-2x"></i>';
+                $social_content .='<i class="fa fa-globe fa-inverse fa-stack-1x"></i>';
+                $social_content .='</span>';
+                $social_content .='<span class="sr-only">'.$haswebsite.'</span>';
+                $social_content .='</a>';
+            }
+            if ($hasgoogleplus) {
+                $social_content .='<a href="'.$hasgoogleplus.'" class="socialicon googleplus" title="'.$hasgoogleplus.'" alt="'.$hasgoogleplus.'">';
+                $social_content .='<span class="fa-stack fa-2x">';
+                $social_content .='<i class="fa fa-square fa-stack-2x"></i>';
+                $social_content .='<i class="fa fa-google-plus fa-inverse fa-stack-1x"></i>';
+                $social_content .='</span>';
+                $social_content .='<span class="sr-only">'.$hasgoogleplus.'</span>';
+                $social_content .='</a>';
+            }
+            if ($hastwitter) {
+                $social_content .='<a href="'.$hastwitter.'" class="socialicon twitter" title="'.$hastwitter.'" alt="'.$hastwitter.'">';
+                $social_content .='<span class="fa-stack fa-2x">';
+                $social_content .='<i class="fa fa-square fa-stack-2x"></i>';
+                $social_content .='<i class="fa fa-twitter fa-inverse fa-stack-1x"></i>';
+                $social_content .='</span>';
+                $social_content .='<span class="sr-only">'.$hastwitter.'</span>';
+                $social_content .='</a>';
+            }
+            if ($hasfacebook) {
+                $social_content .='<a href="'.$hasfacebook.'" class="socialicon facebook" title="'.$hasfacebook.'" alt="'.$hasfacebook.'">';
+                $social_content .='<span class="fa-stack fa-2x">';
+                $social_content .='<i class="fa fa-square fa-stack-2x"></i>';
+                $social_content .='<i class="fa fa-facebook fa-inverse fa-stack-1x"></i>';
+                $social_content .='</span>';
+                $social_content .='<span class="sr-only">'.$hasfacebook.'</span>';
+                $social_content .='</a>';
+            }
+            if ($haslinkedin) {
+                $social_content .='<a href="'.$haslinkedin.'" class="socialicon linkedin" title="'.$haslinkedin.'" alt="'.$haslinkedin.'">';
+                $social_content .='<span class="fa-stack fa-2x">';
+                $social_content .='<i class="fa fa-square fa-stack-2x"></i>';
+                $social_content .='<i class="fa fa-linkedin fa-inverse fa-stack-1x"></i>';
+                $social_content .='</span>';
+                $social_content .='<span class="sr-only">'.$haslinkedin.'</span>';
+                $social_content .='</a>';
+            }
+            if ($hasyoutube) {
+                $social_content .='<a href="'.$hasyoutube.'" class="socialicon youtube" title="'.$hasyoutube.'" alt="'.$hasyoutube.'">';
+                $social_content .='<span class="fa-stack fa-2x">';
+                $social_content .='<i class="fa fa-square fa-stack-2x"></i>';
+                $social_content .='<i class="fa fa-youtube fa-inverse fa-stack-1x"></i>';
+                $social_content .='</span>';
+                $social_content .='<span class="sr-only">'.$hasyoutube.'</span>';
+                $social_content .='</a>';
+            }
+            if ($hasvimeo) {
+                $social_content .='<a href="'.$hasvimeo.'" class="socialicon vimeo" title="'.$hasvimeo.'" alt="'.$hasvimeo.'">';
+                $social_content .='<span class="fa-stack fa-2x">';
+                $social_content .='<i class="fa fa-square fa-stack-2x"></i>';
+                $social_content .='<i class="fa fa-vimeo-square fa-inverse fa-stack-1x"></i>';
+                $social_content .='</span>';
+                $social_content .='<span class="sr-only">'.$hasvimeo.'</span>';
+                $social_content .='</button>';
+            }
+            if ($hasflickr) {
+                $social_content .='<a href="'.$hasflickr.'" class="socialicon flickr" title="'.$hasflickr.'" alt="'.$hasflickr.'">';
+                $social_content .='<span class="fa-stack fa-2x">';
+                $social_content .='<i class="fa fa-square fa-stack-2x"></i>';
+                $social_content .='<i class="fa fa-flickr fa-inverse fa-stack-1x"></i>';
+                $social_content .='</span>';
+                $social_content .='<span class="sr-only">'.$hasflickr.'</span>';
+                $social_content .='</a>';
+            }
+            if ($haspinterest) {
+                $social_content .='<a href="'.$haspinterest.'" class="socialicon pinterest" title="'.$haspinterest.'" alt="'.$haspinterest.'">';
+                $social_content .='<span class="fa-stack fa-2x">';
+                $social_content .='<i class="fa fa-square fa-stack-2x"></i>';
+                $social_content .='<i class="fa fa-pinterest fa-inverse fa-stack-1x"></i>';
+                $social_content .='</span>';
+                $social_content .='<span class="sr-only">'.$haspinterest.'</span>';
+                $social_content .='</a>';
+            }
+            if ($hastumblr) {
+                $social_content .='<a href="'.$hastumblr.'" class="socialicon tumblr" title="'.$hastumblr.'" alt="'.$hastumblr.'">';
+                $social_content .='<span class="fa-stack fa-2x">';
+                $social_content .='<i class="fa fa-square fa-stack-2x"></i>';
+                $social_content .='<i class="fa fa-tumblr fa-inverse fa-stack-1x"></i>';
+                $social_content .='</span>';
+                $social_content .='<span class="sr-only">'.$hastumblr.'</span>';
+                $social_content .='</a>';
+            }
+            if ($hasinstagram) {
+                $social_content .='<a href="'.$hasinstagram.'" class="socialicon instagram" title="'.$hasinstagram.'" alt="'.$hasinstagram.'">';
+                $social_content .='<span class="fa-stack fa-2x">';
+                $social_content .='<i class="fa fa-square fa-stack-2x"></i>';
+                $social_content .='<i class="fa fa-instagram fa-inverse fa-stack-1x"></i>';
+                $social_content .='</span>';
+                $social_content .='<span class="sr-only">'.$hasinstagram.'</span>';
+                $social_content .='</a>';
+            }
+            if ($hasvk) {
+                $social_content .='<a href="'.$hasvk.'" class="socialicon vk" title="'.$hasvk.'" alt="'.$hasvk.'">';
+                $social_content .='<span class="fa-stack fa-2x">';
+                $social_content .='<i class="fa fa-square fa-stack-2x"></i>';
+                $social_content .='<i class="fa fa-vk fa-inverse fa-stack-1x"></i>';
+                $social_content .='</span>';
+                $social_content .='<span class="sr-only">'.$hasvk.'</span>';
+                $social_content .='</a>';
+            }
+            if ($hasskype) {
+                $social_content .='<a href="skype:'.$hasskype.'?call" class="socialicon skype" title="'.$hasskype.'" alt="'.$hasskype.'">';
+                $social_content .='<span class="fa-stack fa-2x">';
+                $social_content .='<i class="fa fa-square fa-stack-2x"></i>';
+                $social_content .='<i class="fa fa-skype fa-inverse fa-stack-1x"></i>';
+                $social_content .='</span>';
+                $social_content .='<span class="sr-only">'.$hasskype.'</span>';
+                $social_content .='</a>';
+            }
+            if ($hassocial1) {
+                $social_content .='<a href="'.$hassocial1.'" class="socialicon skype" title="'.$hassocial1.'" alt="'.$hassocial1.'">';
+                $social_content .='<span class="fa-stack fa-2x">';
+                $social_content .='<i class="fa fa-square fa-stack-2x"></i>';
+                $social_content .='<i class="fa fa-'.$social1icon.' fa-inverse fa-stack-1x"></i>';
+                $social_content .='</span>';
+                $social_content .='<span class="sr-only">'.$hassocial1.'</span>';
+                $social_content .='</a>';
+            }
+            if ($hassocial2) {
+                $social_content .='<a href="'.$hassocial2.'" class="socialicon skype" title="'.$hassocial2.'" alt="'.$hassocial2.'">';
+                $social_content .='<span class="fa-stack fa-2x">';
+                $social_content .='<i class="fa fa-square fa-stack-2x"></i>';
+                $social_content .='<i class="fa fa-'.$social2icon.' fa-inverse fa-stack-1x"></i>';
+                $social_content .='</span>';
+                $social_content .='<span class="sr-only">'.$hassocial2.'</span>';
+                $social_content .='</a>';
+            }
+            if ($hassocial3) {
+                $social_content .='<a href="'.$hassocial3.'" class="socialicon skype" title="'.$hassocial3.'" alt="'.$hassocial3.'">';
+                $social_content .='<span class="fa-stack fa-2x">';
+                $social_content .='<i class="fa fa-square fa-stack-2x"></i>';
+                $social_content .='<i class="fa fa-'.$social3icon.' fa-inverse fa-stack-1x"></i>';
+                $social_content .='</span>';
+                $social_content .='<span class="sr-only">'.$hassocial3.'</span>';
+                $social_content .='</a>';
+            }
+            $social_content .='</ul>';
+        }
+        $social_content .= '</div>';
+        return $social_content;
+    }
 }

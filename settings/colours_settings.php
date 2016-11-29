@@ -32,15 +32,6 @@ $setting = new admin_setting_configtextarea('theme_stagetwo/scsspre',
 $setting->set_updatedcallback('theme_reset_all_caches');
 $page->add($setting);
 
-// Variable $body-color.
-// We use an empty default value because the default colour should come from the preset.
-$name = 'theme_stagetwo/brandcolor';
-$title = get_string('brandcolor', 'theme_stagetwo');
-$description = get_string('brandcolor_desc', 'theme_stagetwo');
-$setting = new admin_setting_configcolourpicker($name, $title, $description, '');
-$setting->set_updatedcallback('theme_reset_all_caches');
-$page->add($setting);
-
 // Variable $brandprimary.
 $name = 'theme_stagetwo/brandprimary';
 $title = get_string('brandprimary', 'theme_stagetwo');
