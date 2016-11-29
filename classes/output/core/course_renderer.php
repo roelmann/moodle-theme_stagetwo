@@ -75,7 +75,7 @@ class course_renderer extends \core_course_renderer {
             'value' => $value
         ];
 
-        return $this->render_from_template('theme_stagetwo/course_search_form', $data);
+        return $this->render_from_template('theme_boost/course_search_form', $data);
     }
 
 }
