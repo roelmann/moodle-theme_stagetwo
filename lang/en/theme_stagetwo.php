@@ -116,3 +116,8 @@ $string['sociallink'] = 'Custom Social Link';
 $string['sociallinkdesc'] = 'Enter the URL of your your custom social media link. (i.e http://www.moodleman.net)';
 $string['sociallinkicon'] = 'Link Icon';
 $string['sociallinkicondesc'] = 'Enter the fontawesome name of the icon for your link<br />A full list of FontAwesome icons can be found at http://fontawesome.io/icons/';
+
+// Content settings.
+$string['contentsettings'] = 'Content areas';
+$string['footnote'] = 'Footnote.';
+$string['footnotedesc'] = 'Footnote content editor for main footer';

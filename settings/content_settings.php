@@ -15,19 +15,26 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version file.
+ * Heading and course images settings page file.
  *
- * @package    theme_stagetwo
+ * @packagetheme_stagetwo
  * @copyright  2016 Richard Oelmann
- * @credits    theme_boost - MoodleHQ
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @creditstheme_boost - MoodleHQ
+ * @licensehttp://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2016112104;
-$plugin->requires  = 2016070700;
-$plugin->component = 'theme_stagetwo';
-$plugin->dependencies = array(
-    'theme_boost'  => 2016102100,
-);
+$page = new admin_settingpage('theme_stagetwo_content', get_string('contentsettings', 'theme_stagetwo'));
+
+    // Footnote setting.
+    $name = 'theme_stagetwo/footnote';
+    $title = get_string('footnote', 'theme_stagetwo');
+    $description = get_string('footnotedesc', 'theme_stagetwo');
+    $default = '';
+    $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+// Must add the page after definiting all the settings!
+$settings->add($page);

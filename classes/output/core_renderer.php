@@ -929,4 +929,14 @@ class core_renderer extends \core_renderer {
         $social_content .= '</div>';
         return $social_content;
     }
+
+    public function footnote() {
+        global $PAGE;
+        $footnote = '';
+
+        $footnote    = (empty($PAGE->theme->settings->footnote)) ? false : $PAGE->theme->settings->footnote;
+
+        return $footnote;
+    }
+
 }
