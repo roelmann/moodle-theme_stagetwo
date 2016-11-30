@@ -22,23 +22,42 @@
  * @credits    theme_boost - MoodleHQ
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+// Check the file is being called internally from within Moodle.
 defined('MOODLE_INTERNAL') || die();
 
+// Call the theme lib file.
 require_once(__DIR__ . '/lib.php');
 
+// Theme name.
 $THEME->name = 'stagetwo';
-$THEME->sheets = ['custom'];
-$THEME->editor_sheets = ['editor'];
+
+// Inherit from parent theme - Boost.
+$THEME->parents = ['boost'];
+
+/* There are currently no css sheets in the theme as scss is used.
+ * No TinyMCE editor stylesheet is provided - this would be impossible
+ * to generate dynamically from the scss presets and settings and is not
+ * used by Moodle's default editor (Atto).
+ */
+$THEME->sheets = [''];
+$THEME->editor_sheets = [''];
+
+// Call main theme scss - including the selected preset.
 $THEME->scss = function($theme) {
     return theme_stagetwo_get_main_scss_content($theme);
 };
 
-$THEME->parents = ['boost'];
+// Docking is not currently supported in Boost family themes.
 $THEME->enable_dock = false;
+
+// Call css/scss processing functions and renderers.
 $THEME->csstreepostprocessor = 'theme_stagetwo_css_tree_post_processor';
 $THEME->prescsscallback = 'theme_stagetwo_get_pre_scss';
 $THEME->extrascsscallback = 'theme_stagetwo_get_extra_scss';
+$THEME->rendererfactory = 'theme_overridden_renderer_factory';
+
+// Additional theme options.
 $THEME->supportscssoptimisation = false;
 $THEME->yuicssmodules = array();
-$THEME->rendererfactory = 'theme_overridden_renderer_factory';
 $THEME->undeletableblocktypes = '';

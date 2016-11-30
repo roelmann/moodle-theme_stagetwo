@@ -27,32 +27,33 @@ defined('MOODLE_INTERNAL') || die();
 
 $page = new admin_settingpage('theme_stagetwo_presets', get_string('presets_settings', 'theme_stagetwo'));
 
-    // Preset.
-    $name = 'theme_stagetwo/preset';
-    $title = get_string('preset', 'theme_stagetwo');
-    $description = get_string('preset_desc', 'theme_stagetwo');
-    $presetchoices[] = '';
-    // Add preset files from theme preset folder.
-    $iterator = new DirectoryIterator($CFG->dirroot . '/theme/stagetwo/scss/preset/');
-    foreach ($iterator as $presetfile) {
-        if($presetfile->isDot()) continue;
-        $presetname = substr($presetfile,0,strlen($presetfile)-5); // name - '.scss'
+// Preset.
+$name = 'theme_stagetwo/preset';
+$title = get_string('preset', 'theme_stagetwo');
+$description = get_string('preset_desc', 'theme_stagetwo');
+$presetchoices[] = '';
+// Add preset files from theme preset folder.
+$iterator = new DirectoryIterator($CFG->dirroot . '/theme/stagetwo/scss/preset/');
+foreach ($iterator as $presetfile) {
+    if (!$presetfile->isDot()) {
+        $presetname = substr($presetfile, 0, strlen($presetfile) - 5); // Name - '.scss'.
         $presetchoices[$presetname] = ucfirst($presetname);
     }
-    // Add preset files uploaded.
-    $context = context_system::instance();
-    $fs = get_file_storage();
-    $files = $fs->get_area_files($context->id, 'theme_stagetwo', 'preset', 0, 'itemid, filepath, filename', false);
-    foreach ($files as $file) {
-        $pname = substr($file->get_filename(),0,strlen($file->get_filename())-5); // name - '.scss'
-        $presetchoices[$pname] = ucfirst($pname);
-    }
-    // Sort choices.
-    natsort($presetchoices);
-    $default = 'default';
-    $setting = new admin_setting_configselect($name, $title, $description, $default, $presetchoices);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
+}
+// Add preset files uploaded.
+$context = context_system::instance();
+$fs = get_file_storage();
+$files = $fs->get_area_files($context->id, 'theme_stagetwo', 'preset', 0, 'itemid, filepath, filename', false);
+foreach ($files as $file) {
+    $pname = substr($file->get_filename(), 0, strlen($file->get_filename()) - 5); // Name - '.scss'.
+    $presetchoices[$pname] = ucfirst($pname);
+}
+// Sort choices.
+natsort($presetchoices);
+$default = 'default';
+$setting = new admin_setting_configselect($name, $title, $description, $default, $presetchoices);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$page->add($setting);
 
 // Preset files setting.
 $name = 'theme_stagetwo/presetfiles';

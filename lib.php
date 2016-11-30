@@ -23,6 +23,16 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+/* THEME_STAGETWO BUILDING NOTES
+ * =============================
+ * Lib functions have been split into separate files, which are called
+ * from this central file. This is to aid ongoing development as I find
+ * it easier to work with multiple smaller function-specific files than
+ * with a single monolithic lib file. This may be a personal preference
+ * and it would be quite feasible to bring all lib functions back into
+ * a single central file if another developer prefered to work in that way.
+ */
+
 defined('MOODLE_INTERNAL') || die();
 
 require('lib/scss_lib.php');

@@ -51,16 +51,17 @@ function theme_stagetwo_get_main_scss_content($theme) {
 
     $context = context_system::instance();
     $iterator = new DirectoryIterator($CFG->dirroot . '/theme/stagetwo/scss/preset/');
-    $preset_isset = '';
+    $presetisset = '';
     foreach ($iterator as $pfile) {
-        if($pfile->isDot()) continue;
-        $presetname = substr($pfile,0,strlen($pfile)-5); // name - '.scss'
-        if ($filename == $presetname) {
-            $scss .= file_get_contents($CFG->dirroot . '/theme/stagetwo/scss/preset/' . $pfile);
-            $preset_isset = true;
+        if (!$pfile->isDot()) {
+            $presetname = substr($pfile, 0, strlen($pfile) - 5); // Name - '.scss'.
+            if ($filename == $presetname) {
+                $scss .= file_get_contents($CFG->dirroot . '/theme/stagetwo/scss/preset/' . $pfile);
+                $presetisset = true;
+            }
         }
     }
-    if (!$preset_isset) {
+    if (!$presetisset) {
         $filename .= '.scss';
         if ($filename && ($presetfile = $fs->get_file($context->id, 'theme_stagetwo', 'preset', 0    , '/', $filename))) {
             $scss .= $presetfile->get_content();
