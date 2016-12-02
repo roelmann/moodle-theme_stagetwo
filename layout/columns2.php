@@ -37,13 +37,20 @@ if ($navdraweropen) {
     $extraclasses[] = 'drawer-open-left';
 }
 $bodyattributes = $OUTPUT->body_attributes($extraclasses);
-$blockshtml = $OUTPUT->blocks('side-pre');
+
+$blockshtml = '';
+$blocksprehtml = $OUTPUT->blocks('side-pre');
+$blockshtml .= $blocksprehtml;
+$blockstophtml = $OUTPUT->blocks('side-top');
+$blockshtml .= $blockstophtml;
 $hasblocks = strpos($blockshtml, 'data-block=') !== false;
+
 $regionmainsettingsmenu = $OUTPUT->region_main_settings_menu();
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, array('context' => context_course::instance(SITEID))),
     'output' => $OUTPUT,
-    'sidepreblocks' => $blockshtml,
+    'sidepreblocks' => $blocksprehtml,
+    'sidetopblocks' => $blockstophtml,
     'hasblocks' => $hasblocks,
     'bodyattributes' => $bodyattributes,
     'navdraweropen' => $navdraweropen,

@@ -31,6 +31,7 @@ $string['choosereadme'] = 'stagetwo is a modern highly-customisable theme. This 
 $string['configtitle'] = 'stagetwo';
 $string['pluginname'] = 'stagetwo';
 $string['region-side-pre'] = 'Right';
+$string['region-side-top'] = 'Top';
 
 
 $string['generalsettings'] = 'General settings';

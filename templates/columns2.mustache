@@ -26,6 +26,7 @@
     * output - The core renderer for the page
     * bodyattributes - attributes for the body tag as a string of html attributes
     * sidepreblocks - HTML for the blocks
+    * sidetopblocks - HTML for the blocks
     * hasblocks - true if there are blocks on this page
     * navdraweropen - true if the nav drawer should be open on page load
     * regionmainsettingsmenu - HTML for the region main settings menu
@@ -42,6 +43,7 @@
          },
         "bodyattributes":"",
         "sidepreblocks": "<h2>Blocks html goes here</h2>",
+        "sidetopblocks": "<h2>Blocks html goes here</h2>",
         "hasblocks":true,
         "navdraweropen":true,
         "regionmainsettingsmenu": "",
@@ -77,6 +79,11 @@
                 </div>
                 {{/hasregionmainsettingsmenu}}
                 <section id="region-main" {{#hasblocks}}class="has-blocks"{{/hasblocks}}>
+                	{{#sidetopblocks}}
+                		<section class="side-top" data-region="blocks-column">
+                    		{{{ sidetopblocks }}}
+                		</section>
+                	{{/sidetopblocks}}
                     <div class="card card-block">
                     {{#hasregionmainsettingsmenu}}
                         <div class="region_main_settings_menu_proxy"></div>
@@ -86,11 +93,11 @@
                     {{{ output.course_content_footer }}}
                     </div>
                 </section>
-                {{#hasblocks}}
-                <section data-region="blocks-column">
+                {{#sidepreblocks}}
+                <section class="side-pre" data-region="blocks-column">
                     {{{ sidepreblocks }}}
                 </section>
-                {{/hasblocks}}
+                {{/sidepreblocks}}
             </div>
         </div>
     </div>
