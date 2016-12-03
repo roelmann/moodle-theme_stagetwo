@@ -71,33 +71,68 @@
     <div id="page" class="container-fluid">
         {{{ output.full_header }}}
 
-        <div id="page-content" class="row">
+         <div id="page-content" class="row">
+             {{#hassidealerts}}
+                 <section class="side-alerts" data-region="blocks-column">
+                     {{{ sidealertsblocks }}}
+                 </section>
+            {{/hassidealerts}}
+
             <div id="region-main-box" class="col-xs-12">
                 {{#hasregionmainsettingsmenu}}
                 <div id="region-main-settings-menu" {{#hasblocks}}class="has-blocks"{{/hasblocks}}>
                     <div> {{{ output.region_main_settings_menu }}} </div>
                 </div>
                 {{/hasregionmainsettingsmenu}}
+
                 <section id="region-main" {{#hasblocks}}class="has-blocks"{{/hasblocks}}>
-                	{{#sidetopblocks}}
-                		<section class="side-top" data-region="blocks-column">
-                    		{{{ sidetopblocks }}}
-                		</section>
-                	{{/sidetopblocks}}
-                    <div class="card card-block">
+
+                    {{#hassidetop}}
+                        <section class="side-top" data-region="blocks-column">
+                            {{{ sidetopblocks }}}
+                        </section>
+                    {{/hassidetop}}
+
+                    <div class="card card-block main-region-wrapper">
                     {{#hasregionmainsettingsmenu}}
                         <div class="region_main_settings_menu_proxy"></div>
                     {{/hasregionmainsettingsmenu}}
-                    {{{ output.course_content_header }}}
-                    {{{ output.main_content }}}
-                    {{{ output.course_content_footer }}}
+
+                    <section class="main-region-content">
+
+                        {{{ output.course_content_header }}}
+                        {{{ output.main_content }}}
+                        {{{ output.course_content_footer }}}
+
+                    </section>
+
+                        {{#hassidemainleft}}
+                            <section class="side-main-left" data-region="blocks-column">
+                                {{{ sidemainleftblocks }}}
+                            </section>
+                        {{/hassidemainleft}}
+
+                        {{#hassidemainright}}
+                            <section class="side-main-right" data-region="blocks-column">
+                                {{{ sidemainrightblocks }}}
+                            </section>
+                        {{/hassidemainright}}
+
                     </div>
+
+                    {{#hassidebottom}}
+                        <section class="side-bottom" data-region="blocks-column">
+                            {{{ sidebottomblocks }}}
+                        </section>
+                    {{/hassidebottom}}
+
+
                 </section>
-                {{#sidepreblocks}}
+                {{#hassidepre}}
                 <section class="side-pre" data-region="blocks-column">
                     {{{ sidepreblocks }}}
                 </section>
-                {{/sidepreblocks}}
+                {{/hassidepre}}
             </div>
         </div>
     </div>

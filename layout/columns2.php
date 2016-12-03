@@ -40,18 +40,46 @@ $bodyattributes = $OUTPUT->body_attributes($extraclasses);
 
 $blockshtml = '';
 $blocksprehtml = $OUTPUT->blocks('side-pre');
-$blockshtml .= $blocksprehtml;
+$hasblocksprehtml = strpos($blocksprehtml, 'data-block=') !== false;
 $blockstophtml = $OUTPUT->blocks('side-top');
-$blockshtml .= $blockstophtml;
-$hasblocks = strpos($blockshtml, 'data-block=') !== false;
+$hasblockstophtml = strpos($blockstophtml, 'data-block=') !== false;
+$blocksbottomhtml = $OUTPUT->blocks('side-bottom');
+$hasblocksbottomhtml = strpos($blocksbottomhtml, 'data-block=') !== false;
+$blocksmainlefthtml = $OUTPUT->blocks('side-main-left');
+$hasblocksmainlefthtml = strpos($blocksmainlefthtml, 'data-block=') !== false;
+$blocksmainrighthtml = $OUTPUT->blocks('side-main-right');
+$hasblocksmainrighthtml = strpos($blocksmainrighthtml, 'data-block=') !== false;
+$blocksalertshtml = $OUTPUT->blocks('side-alerts');
+$hasblocksalertshtml = strpos($blocksalertshtml, 'data-block=') !== false;
+$hasblocks = false;
+if ($hasblocksprehtml ||
+    $hasblockstophtml ||
+    $hasblocksbottomhtml ||
+    $hasblocksmainlefthtml ||
+    $hasblocksmainrighthtml ||
+    $hasblocksalertshtml) {
+    $hasblocks = true;
+}
 
 $regionmainsettingsmenu = $OUTPUT->region_main_settings_menu();
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, array('context' => context_course::instance(SITEID))),
     'output' => $OUTPUT,
+
+    'hassidepre' => $hasblocksprehtml,
     'sidepreblocks' => $blocksprehtml,
+    'hassidetop' => $hasblockstophtml,
     'sidetopblocks' => $blockstophtml,
+    'hassidebottom' => $hasblocksbottomhtml,
+    'sidebottomblocks' => $blocksbottomhtml,
+    'hassidemainleft' => $hasblocksmainlefthtml,
+    'sidemainleftblocks' => $blocksmainlefthtml,
+    'hassidemainright' => $hasblocksmainrighthtml,
+    'sidemainrightblocks' => $blocksmainrighthtml,
+    'hassidealerts' => $hasblocksalertshtml,
+    'sidealertsblocks' => $blocksalertshtml,
     'hasblocks' => $hasblocks,
+
     'bodyattributes' => $bodyattributes,
     'navdraweropen' => $navdraweropen,
     'regionmainsettingsmenu' => $regionmainsettingsmenu,

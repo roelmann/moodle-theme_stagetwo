@@ -78,7 +78,7 @@ $THEME->layouts = [
     // Main course page.
     'course' => array(
         'file' => 'columns2.php',
-        'regions' => array('side-pre', 'side-top'),
+        'regions' => array('side-pre', 'side-top', 'side-bottom', 'side-main-left', 'side-main-right', 'side-alerts'),
         'defaultregion' => 'side-pre',
         'options' => array('langmenu' => true),
     ),
