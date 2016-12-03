@@ -246,7 +246,7 @@ aside#block-region-side-main-top, aside#block-region-side-main-bottom {
     width:100%;
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: flex-start;
     align-content: stretch;
     align-items: flex-start;
@@ -276,4 +276,7 @@ aside#block-region-side-main-top, aside#block-region-side-main-bottom {
     aside.block:last-of-type {
         margin-right:0;
     }
+}
+#block-region-side-alerts .card-title {
+    display:none;
 }
