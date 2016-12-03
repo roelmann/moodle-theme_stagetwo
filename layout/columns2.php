@@ -41,10 +41,12 @@ $bodyattributes = $OUTPUT->body_attributes($extraclasses);
 $blockshtml = '';
 $blocksprehtml = $OUTPUT->blocks('side-pre');
 $hasblocksprehtml = strpos($blocksprehtml, 'data-block=') !== false;
-$blockstophtml = $OUTPUT->blocks('side-top');
-$hasblockstophtml = strpos($blockstophtml, 'data-block=') !== false;
-$blocksbottomhtml = $OUTPUT->blocks('side-bottom');
-$hasblocksbottomhtml = strpos($blocksbottomhtml, 'data-block=') !== false;
+
+$blocksmaintophtml = $OUTPUT->blocks('side-main-top');
+$hasblocksmaintophtml = strpos($blocksmaintophtml, 'data-block=') !== false;
+$blocksmainbottomhtml = $OUTPUT->blocks('side-main-bottom');
+$hasblocksmainbottomhtml = strpos($blocksmainbottomhtml, 'data-block=') !== false;
+
 $blocksmainlefthtml = $OUTPUT->blocks('side-main-left');
 $hasblocksmainlefthtml = strpos($blocksmainlefthtml, 'data-block=') !== false;
 $blocksmainrighthtml = $OUTPUT->blocks('side-main-right');
@@ -53,8 +55,8 @@ $blocksalertshtml = $OUTPUT->blocks('side-alerts');
 $hasblocksalertshtml = strpos($blocksalertshtml, 'data-block=') !== false;
 $hasblocks = false;
 if ($hasblocksprehtml ||
-    $hasblockstophtml ||
-    $hasblocksbottomhtml ||
+    $hasblocksmaintophtml ||
+    $hasblocksmainbottomhtml ||
     $hasblocksmainlefthtml ||
     $hasblocksmainrighthtml ||
     $hasblocksalertshtml) {
@@ -68,10 +70,10 @@ $templatecontext = [
 
     'hassidepre' => $hasblocksprehtml,
     'sidepreblocks' => $blocksprehtml,
-    'hassidetop' => $hasblockstophtml,
-    'sidetopblocks' => $blockstophtml,
-    'hassidebottom' => $hasblocksbottomhtml,
-    'sidebottomblocks' => $blocksbottomhtml,
+    'hassidemaintop' => $hasblocksmaintophtml,
+    'sidemaintopblocks' => $blocksmaintophtml,
+    'hassidemainbottom' => $hasblocksmainbottomhtml,
+    'sidemainbottomblocks' => $blocksmainbottomhtml,
     'hassidemainleft' => $hasblocksmainlefthtml,
     'sidemainleftblocks' => $blocksmainlefthtml,
     'hassidemainright' => $hasblocksmainrighthtml,

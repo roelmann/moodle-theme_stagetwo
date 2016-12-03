@@ -25,8 +25,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2016120200;
-$plugin->release  = 'v3.2.1.1';
+$plugin->version   = 2016120201;
+$plugin->release  = 'v3.2.1.2';
 $plugin->maturity  = MATURITY_BETA;
 $plugin->requires  = 2016070700;
 $plugin->component = 'theme_stagetwo';

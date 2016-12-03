@@ -81,7 +81,7 @@ header#page-header .page-header-headings h1 {
 /* Layout styles.
  * ============== */
 
-.side-top, .side-alerts, .side-bottom {
+.side-main-top, .side-alerts, .side-main-bottom {
     &[data-region="blocks-column"] {
         width: 100%;
         float:none;
@@ -108,94 +108,172 @@ header#page-header .page-header-headings h1 {
     }
 }
 
+/* For Main Content Card - main region, and main-left/main-right.
+ * -------------------------------------------------------------- */
 .main-region-wrapper {
+    /* Legacy styles. */
     display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;
     display: -webkit-flex;
-    display: flex;
     -webkit-box-direction: normal;
     -moz-box-direction: normal;
     -webkit-box-orient: horizontal;
     -moz-box-orient: horizontal;
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
-    flex-direction: row;
     -webkit-flex-wrap: wrap;
     -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
     -webkit-box-pack: start;
     -moz-box-pack: start;
     -webkit-justify-content: flex-start;
     -ms-flex-pack: start;
-    justify-content: flex-start;
     -webkit-align-content: stretch;
     -ms-flex-line-pack: stretch;
-    align-content: stretch;
     -webkit-box-align: start;
     -moz-box-align: start;
     -webkit-align-items: flex-start;
     -ms-flex-align: start;
+    /* -------------- */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: stretch;
     align-items: flex-start;
 }
 .main-region-content {
+    /* Legacy styles. */
     -webkit-box-ordinal-group: 4;
     -moz-box-ordinal-group: 4;
     -webkit-order: 3;
     -ms-flex-order: 3;
-    order: 3;
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
     -webkit-flex: 1 1 50%;
     -ms-flex: 1 1 50%;
-    flex: 1 1 50%;
     -webkit-align-self: stretch;
     -ms-flex-item-align: stretch;
+    /* -------------- */
+    order: 3;
+    flex: 1 1 50%;
     align-self: stretch;
 }
 .side-main-left {
+    /* Legacy styles. */
     -webkit-box-ordinal-group: 2;
     -moz-box-ordinal-group: 2;
     -webkit-order: 1;
     -ms-flex-order: 1;
-    order: 1;
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
     -webkit-flex: 1 1 25%;
     -ms-flex: 1 1 25%;
-    flex: 1 1 25%;
     -webkit-align-self: stretch;
     -ms-flex-item-align: stretch;
+    /* -------------- */
+    min-width:220px;
+    order: 1;
+    flex: 1 1 25%;
     align-self: stretch;
 }
 .side-main-right {
+    /* Legacy styles. */
     -webkit-box-ordinal-group: 6;
     -moz-box-ordinal-group: 6;
     -webkit-order: 5;
     -ms-flex-order: 5;
-    order: 5;
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
     -webkit-flex: 1 1 25%;
     -ms-flex: 1 1 25%;
-    flex: 1 1 25%;
     -webkit-align-self: stretch;
     -ms-flex-item-align: stretch;
+    /* -------------- */
+    min-width:220px;
+    order: 5;
+    flex: 1 1 25%;
     align-self: stretch;
 }
 @media (max-width: 1024px) {
     .main-region-wrapper {
+        /* Legacy styles. */
         -webkit-box-orient: vertical;
         -moz-box-orient: vertical;
         -webkit-flex-direction: column;
         -ms-flex-direction: column;
+        /* -------------- */
         flex-direction: column;
     }
     .side-main-left {
+        /* Legacy styles. */
         -webkit-box-ordinal-group: 5;
         -moz-box-ordinal-group: 5;
         -webkit-order: 4;
         -ms-flex-order: 4;
+        /* -------------- */
         order: 4;
+    }
+}
+
+/* For region-top and region-bottom. To allow blocks to be positioned horizontally.
+ * -------------------------------------------------------------------------------- */
+aside#block-region-side-main-top, aside#block-region-side-main-bottom {
+    /* Legacy styles. */
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    -webkit-box-direction: normal;
+    -moz-box-direction: normal;
+    -webkit-box-orient: horizontal;
+    -moz-box-orient: horizontal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    -webkit-box-pack: start;
+    -moz-box-pack: start;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    -webkit-align-content: stretch;
+    -ms-flex-line-pack: stretch;
+    -webkit-box-align: start;
+    -moz-box-align: start;
+    -webkit-align-items: flex-start;
+    -ms-flex-align: start;
+    /* -------------- */
+    width:100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: stretch;
+    align-items: flex-start;
+
+    aside.block {
+        /* Legacy styles. */
+        -webkit-box-ordinal-group: 2;
+        -moz-box-ordinal-group: 2;
+        -webkit-order: 1;
+        -ms-flex-order: 1;
+        -webkit-box-flex: 1;
+        -moz-box-flex: 1;
+        -webkit-flex: 1 1 25%;
+        -ms-flex: 1 1 25%;
+        -webkit-align-self: stretch;
+        -ms-flex-item-align: stretch;
+        /* -------------- */
+        min-width:220px;
+        margin:0 1px;
+        order: 1;
+        flex: 1 1 25%;
+        align-self: stretch;
+    }
+    aside.block:first-of-type {
+        margin-left:0;
+    }
+    aside.block:last-of-type {
+        margin-right:0;
     }
 }
