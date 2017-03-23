@@ -15,21 +15,21 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version file.
+ * StageTwo minimalist Boost child theme.
  *
  * @package    theme_stagetwo
- * @copyright  2016 Richard Oelmann
- * @credits    theme_boost - MoodleHQ
+ * @copyright  2017 Richard Oelmann
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2016120201;
-$plugin->release  = 'v3.2.1.2';
-$plugin->maturity  = MATURITY_BETA;
-$plugin->requires  = 2016070700;
+$plugin->version = '2017032100';
+
+$plugin->requires = '2016070700';
+
 $plugin->component = 'theme_stagetwo';
-$plugin->dependencies = array(
-    'theme_boost'  => 2016102100,
-);
+
+$plugin->dependencies = [
+    'theme_boost' => '2016102100'
+];

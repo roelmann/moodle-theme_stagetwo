@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,25 +16,33 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Main Lib file.
+ * StageTwo minimalist Boost child theme.
  *
  * @package    theme_stagetwo
- * @copyright  2016 Richard Oelmann
- * @credits    theme_boost - MoodleHQ
+ * @copyright  2017 Richard Oelmann
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
-/* THEME_STAGETWO BUILDING NOTES
- * =============================
- * Lib functions have been split into separate files, which are called
- * from this central file. This is to aid ongoing development as I find
- * it easier to work with multiple smaller function-specific files than
- * with a single monolithic lib file. This may be a personal preference
- * and it would be quite feasible to bring all lib functions back into
- * a single central file if another developer prefered to work in that way.
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-require('lib/scss_lib.php');
-require('lib/filesettings_lib.php');
+function theme_stagetwo_get_main_scss_content($theme) {
+    global $CFG;
+
+    $scss = '';
+    $filename = !empty($theme->settings->preset) ? $theme->settings->preset : null;
+    $fs = get_file_storage();
+
+    $context = context_system::instance();
+    if ($filename == 'default.scss') {
+        $scss .= file_get_contents($CFG->dirroot . '/theme/boost/scss/preset/default.scss');
+    } else if ($filename == 'plain.scss') {
+        $scss .= file_get_contents($CFG->dirroot . '/theme/boost/scss/preset/plain.scss');
+
+    } else if ($filename && ($presetfile = $fs->get_file($context->id, 'theme_stagetwo', 'preset', 0, '/', $filename))) {
+        $scss .= $presetfile->get_content();
+    } else {
+        $scss .= file_get_contents($CFG->dirroot . '/theme/boost/scss/preset/default.scss');
+    }
+
+    return $scss;
+}

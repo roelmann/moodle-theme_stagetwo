@@ -15,35 +15,69 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Main settings file.
+ * StageTwo minimalist Boost child theme.
  *
  * @package    theme_stagetwo
- * @copyright  2016 Richard Oelmann
- * @credits    theme_boost - MoodleHQ
+ * @copyright  2017 Richard Oelmann
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
-/* THEME_STAGETWO BUILDING NOTES
- * =============================
- * Settings have been split into separate files, which are called from
- * this central file. This is to aid ongoing development as I find it
- * easier to work with multiple smaller function-specific files than
- * with a single monolithic settings file.
- * This may be a personal preference and it would be quite feasible to
- * bring all lib functions back into a single central file if another
- * developer prefered to work in that way.
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 if ($ADMIN->fulltree) {
-    // Note new tabs layout for admin settings pages.
-    $settings = new theme_stagetwo_admin_settingspage_tabs('themesettingstagetwo', get_string('configtitle', 'theme_stagetwo'));
 
-    require('settings/presets_settings.php');
-    require('settings/colours_settings.php');
-    require('settings/header_settings.php');
-    require('settings/content_settings.php');
-    require('settings/socialicons_settings.php');
+    $settings = new theme_boost_admin_settingspage_tabs('themesettingstagetwo', get_string('configtitle', 'theme_stagetwo'));
 
+    $page = new admin_settingpage('theme_stagetwo_general', get_string('generalsettings', 'theme_stagetwo'));
+
+    $name = 'theme_stagetwo/preset';
+    $title = get_string('preset', 'theme_stagetwo');
+    $description = get_string('preset_desc', 'theme_stagetwo');
+    $default = 'default.scss';
+
+    $context = context_system::instance();
+    $fs = get_file_storage();
+    $files = $fs->get_area_files($context->id, 'theme_stagetwo', 'preset', 0, 'itemid, filepath, filename', false);
+
+    $choices = [];
+    foreach ($files as $file) {
+        $choices[$file->get_filename()] = $file->get_filename();
+    }
+    $choices['default.scss'] = 'default.scss';
+    $choices['plain.scss'] = 'plain.scss';
+
+    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    $name = 'theme_stagetwo/presetfiles';
+    $title = get_string('presetfiles','theme_stagetwo');
+    $description = get_string('presetfiles_desc', 'theme_stagetwo');
+
+    $setting = new admin_setting_configstoredfile($name, $title, $description, 'preset', 0,
+        array('maxfiles' => 20, 'accepted_types' => array('.scss')));
+    $page->add($setting);
+
+    $name = 'theme_stagetwo/brandcolor';
+    $title = get_string('brandcolor', 'theme_stagetwo');
+    $description = get_string('brandcolor_desc', 'theme_stagetwo');
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '');
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    $settings->add($page);
+
+    $page = new admin_settingpage('theme_stagetwo_advanced', get_string('advancedsettings', 'theme_stagetwo'));
+
+    $setting = new admin_setting_configtextarea('theme_stagetwo/scsspre',
+        get_string('rawscsspre', 'theme_stagetwo'), get_string('rawscsspre_desc', 'theme_stagetwo'), '', PARAM_RAW);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    $setting = new admin_setting_configtextarea('theme_stagetwo/scss', get_string('rawscss', 'theme_stagetwo'),
+        get_string('rawscss_desc', 'theme_stagetwo'), '', PARAM_RAW);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    $settings->add($page);
 }
